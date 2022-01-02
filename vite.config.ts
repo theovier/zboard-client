@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+// @ts-ignore
 const path = require('path');
 import vue from '@vitejs/plugin-vue'
 
