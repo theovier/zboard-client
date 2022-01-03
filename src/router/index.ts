@@ -1,4 +1,3 @@
-// @ts-ignore
 import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
 
