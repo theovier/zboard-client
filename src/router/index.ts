@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized} from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import Playground from "../views/Playground.vue";
 import Login from "../views/auth/Login.vue";
 import {useAuthStore} from "../store";

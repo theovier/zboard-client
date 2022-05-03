@@ -12,7 +12,6 @@ import router from "../../router";
 import { onMounted } from 'vue'
 import {useAuthStore} from "../../store";
 
-//todo: check at startup if still logged in -> if so, skip login.
 const store = useAuthStore()
 
 function login() {

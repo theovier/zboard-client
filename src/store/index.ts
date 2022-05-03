@@ -21,8 +21,6 @@ export const useAuthStore = defineStore('user', {
             this.authenticated = true
             this.user = user;
         },
-
-        //todo extract to service
         login(email: string, password: string) {
             return authService
                 .login(email, password)
@@ -39,6 +37,7 @@ export const useAuthStore = defineStore('user', {
                 });
         },
         logout() {
+            //todo: log out on server as well
             this.authenticated = false
             this.user = null
         },
