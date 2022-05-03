@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized} from "vue-router";
 import Playground from "../views/Playground.vue";
 import Login from "../views/auth/Login.vue";
+import {useAuthStore} from "../store";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -19,19 +20,15 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    const store = useAuthStore()
     if (to.name === 'login') {
         next();
-    } else {
-        await checkAuthentication(to, from, next)
-    }
-})
-
-function checkAuthentication(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) {
-    if (true) { //todo: check store for authentication useUserStore().isAuthenticated
+    } else if (await store.isLoggedIn()) {
         next();
     } else {
         next({ name: 'login' })
     }
-}
+})
+
 
 export default router;

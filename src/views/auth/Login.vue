@@ -8,17 +8,23 @@
 
 <script lang="ts" setup>
 import Container from '@/views/Container.vue';
-import AuthService from "../../services/AuthenticationService";
 import router from "../../router";
+import { onMounted } from 'vue'
+import {useAuthStore} from "../../store";
+
+//todo: check at startup if still logged in -> if so, skip login.
+const store = useAuthStore()
 
 function login() {
-    //todo: check at startup if still logged in -> if so, skip this view.
-    //todo check store if authenticated.
-
-    AuthService
+    store
         .login("admin@example.com", "password")
-        .then(() => AuthService.getOwnUser())
-        .then((response: any) => console.log(response))
         .then(() => router.push({name: "playground"}))
 }
+
+onMounted( () => {
+    store
+        .isLoggedIn()
+        .then(() => router.push({name: "playground"}))
+})
+
 </script>

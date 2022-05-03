@@ -1,5 +1,8 @@
 <template>
     <container>
+        <div>
+            hi, {{store.getUser.name}}!
+        </div>
         <div class="grid grid-rows-5 grid-cols-4 gap-4">
             <card class="bg-lime-600"/>
             <card class="bg-blue-900" v-for="i in 5"/>
@@ -14,4 +17,6 @@
 <script lang="ts" setup>
 import Container from '@/views/Container.vue';
 import Card from '@/components/Card.vue';
+import {useAuthStore} from "../store";
+const store = useAuthStore();
 </script>

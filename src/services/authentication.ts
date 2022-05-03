@@ -12,7 +12,7 @@ function grabCSRFCookie() {
     return axios.get(`${API_URL}:${API_PORT}/${CSRF_ENDPOINT}`)
 }
 
-function authenticate(email: string, password: string) {
+function login(email: string, password: string) {
     return axios
         .post("http://localhost:80/api/login", {
             email: email,
@@ -31,7 +31,7 @@ export default {
     login(email: string, password: string) {
         return grabCSRFCookie()
             .then(() => {
-                return authenticate(email, password)
+                return login(email, password);
             })
     },
     getOwnUser() {
