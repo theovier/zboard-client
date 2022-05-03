@@ -14,23 +14,10 @@
 <script lang="ts" setup>
 import Container from '@/views/Container.vue';
 import Card from '@/components/Card.vue';
-import {inject} from "vue";
+import AuthService from "../services/AuthenticationService";
 
-    const axios: any = inject('axios')
-
-    axios
-        .get("http://localhost:80/sanctum/csrf-cookie")
-        .then(() => {
-            return axios.post("http://localhost:80/api/login", {
-                email: "admin@example.com",
-                password: "password",
-            })
-        })
-        .then((response : any) => {
-            console.log(response)
-            return axios.get("http://localhost:80/api/user")
-        })
-        .then((response : any) => {
-            console.log(response.data)
-        });
+    AuthService
+        .login("admin@example.com", "password")
+        .then(() => AuthService.getOwnUser())
+        .then((response: any) => console.log(response));
 </script>
