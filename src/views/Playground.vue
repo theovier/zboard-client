@@ -14,10 +14,4 @@
 <script lang="ts" setup>
 import Container from '@/views/Container.vue';
 import Card from '@/components/Card.vue';
-import AuthService from "../services/AuthenticationService";
-
-    AuthService
-        .login("admin@example.com", "password")
-        .then(() => AuthService.getOwnUser())
-        .then((response: any) => console.log(response));
 </script>
