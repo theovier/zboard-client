@@ -8,4 +8,7 @@ import VueAxios from 'vue-axios'
 createApp(App)
     .use(router)
     .use(VueAxios, axios)
+    .provide("axios", axios)
     .mount('#app');
+
+axios.defaults.withCredentials = true
