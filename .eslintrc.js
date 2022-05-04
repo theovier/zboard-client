@@ -4,10 +4,13 @@ module.exports = {
 	},
 	extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "prettier"],
 	rules: {
-		'vue/multi-word-component-names': 'off',
-		"vue/no-unused-vars": ["error", {
-			"ignorePattern": "^_"
-		}]
+		"vue/multi-word-component-names": "off",
+		"vue/no-unused-vars": [
+			"error",
+			{
+				ignorePattern: "^_",
+			},
+		],
 	},
-	ignorePatterns: ["**/src/views/Playground.vue"]
+	ignorePatterns: ["**/src/views/Playground.vue"],
 };

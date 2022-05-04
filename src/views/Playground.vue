@@ -1,7 +1,7 @@
 <template>
 	<container>
 		<div>hi, {{ store.getUser.name }}!</div>
-		<div class="grid grid-rows-5 grid-cols-4 gap-4">
+		<div class="grid grid-cols-4 grid-rows-5 gap-4">
 			<card class="bg-lime-600" />
 			<card v-for="i in 5" class="bg-blue-900" />
 			<card class="col-span-2 row-span-3 bg-red-900" />
