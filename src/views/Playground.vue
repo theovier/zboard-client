@@ -1,6 +1,6 @@
 <template>
 	<container>
-		<div>hi, {{ store.getUser.name }}!</div>
+		<div>hi, {{ name }}!</div>
 		<div class="grid grid-cols-4 grid-rows-5 gap-4">
 			<card class="bg-lime-600" />
 			<card v-for="i in 5" class="bg-blue-900" />
@@ -17,4 +17,12 @@ import Container from "@/views/Container.vue";
 import Card from "@/components/Card.vue";
 import { useAuthStore } from "../store";
 const store = useAuthStore();
+
+const user = store.getUser
+let name = "name"
+if (user) {
+    name = user['name'];
+}
+
+
 </script>
