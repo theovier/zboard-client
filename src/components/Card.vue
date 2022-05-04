@@ -1,7 +1,5 @@
 <template>
-    <div class="rounded-md"/>
+	<div class="rounded-md" />
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
