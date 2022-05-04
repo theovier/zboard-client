@@ -10,7 +10,7 @@
 import Container from '@/views/Container.vue';
 import router from "../../router";
 import { onMounted } from 'vue'
-import {useAuthStore} from "../../store";
+import { useAuthStore } from "../../store";
 
 const store = useAuthStore()
 
