@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
+import Login2 from "../views/auth/Login2.vue";
 import Login from "../views/auth/Login.vue";
 import { useAuthStore } from "../store";
 
@@ -10,6 +11,11 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			component: Login,
+		},
+		{
+			path: "/demo",
+			name: "demo",
+			component: Login2,
 		},
 		{
 			path: "/",

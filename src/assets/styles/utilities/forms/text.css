@@ -1,0 +1,16 @@
+@layer utilities {
+    .input-text {
+        @apply mt-1 block rounded-md border-gray-300 shadow-sm
+        focus:border-indigo-300
+        focus:ring-indigo-200
+        focus:ring-opacity-50
+    }
+
+    .error {
+        @apply border-red-600
+        focus:border-red-300
+        focus:ring-red-200
+    }
+}
+
+
