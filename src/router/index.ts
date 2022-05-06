@@ -11,28 +11,33 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			component: Login,
+			meta: { requiresAuth: false }
 		},
 		{
 			path: "/register",
 			name: "register",
 			component: SignUp,
+			meta: { requiresAuth: false }
 		},
 		{
 			path: "/",
 			name: "playground",
 			component: Playground,
+			meta: { requiresAuth: true }
 		},
 	],
 });
 
 router.beforeEach(async (to, from, next) => {
 	const store = useAuthStore();
-	if (to.name === "login" || to.name === "register") {
-		next();
-	} else if (store.isAuthenticated) {
-		next();
+	if (to.meta.requiresAuth) {
+		if (store.isAuthenticated) {
+			next();
+		} else {
+			next({ name: "login" });
+		}
 	} else {
-		next({ name: "login" });
+		next();
 	}
 });
 
