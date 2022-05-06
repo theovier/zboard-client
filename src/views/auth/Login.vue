@@ -2,18 +2,13 @@
 	<container>
 		<form @submit.prevent="login">
 			<div class="mt-24">
-				<img
-					class="mx-auto hidden h-12 w-auto sm:block"
-					src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-					alt="Workflow"
-				/>
 				<h1
 					class="mt-6 text-center text-3xl font-extrabold tracking-tighter text-gray-900"
 				>
 					Z-Board
 				</h1>
 				<h2
-					class="mt-2 text-center text-lg tracking-tighter text-gray-600"
+					class="mt-2 text-center text-lg font-medium tracking-tighter text-gray-600"
 				>
 					Stay Connected
 				</h2>
@@ -36,8 +31,9 @@
 			</div>
 			<div class="flex justify-center">
 				<div
-					class="relative w-full max-w-md rounded-lg border border-gray-200 bg-gray-50 p-4 py-8 shadow-lg sm:px-10"
+					class="relative w-full max-w-md rounded-lg border border-gray-200 bg-gray-50 p-4 pt-4 pb-8 shadow-lg sm:px-10"
 				>
+					<h2 class="my-4 text-xl font-medium">Log In</h2>
 					<div class="rounded-md shadow-sm">
 						<div class="">
 							<label class="input-label">Email</label>

@@ -11,19 +11,19 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			component: Login,
-			meta: { requiresAuth: false }
+			meta: { requiresAuth: false },
 		},
 		{
-			path: "/register",
-			name: "register",
+			path: "/signup",
+			name: "signup",
 			component: SignUp,
-			meta: { requiresAuth: false }
+			meta: { requiresAuth: false },
 		},
 		{
 			path: "/",
 			name: "playground",
 			component: Playground,
-			meta: { requiresAuth: true }
+			meta: { requiresAuth: true },
 		},
 	],
 });

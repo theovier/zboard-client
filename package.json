@@ -13,6 +13,7 @@
 		"@fortawesome/free-regular-svg-icons": "^6.1.1",
 		"@fortawesome/free-solid-svg-icons": "^6.1.1",
 		"@fortawesome/vue-fontawesome": "^3.0.0-5",
+		"@heroicons/vue": "^1.0.6",
 		"@typescript-eslint/eslint-plugin": "^5.22.0",
 		"@typescript-eslint/parser": "^5.22.0",
 		"axios": "^0.27.2",
