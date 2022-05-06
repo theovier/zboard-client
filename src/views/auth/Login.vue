@@ -1,14 +1,15 @@
 <template>
     <container>
-        <div class="mt-24">
-            <img class="hidden sm:block mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
-            <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tighter">Z-Board</h1>
-            <h2 class="mt-2 text-center text-lg  text-gray-600 tracking-tighter">Stay Connected</h2>
-        </div>
-        <div
-            class=" relative mt-6 mb-4 flex justify-center items-center"
-            :class="{'invisible' : !hasError}"
-        >
+        <form @submit.prevent="login">
+            <div class="mt-24">
+                <img class="hidden sm:block mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+                <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tighter">Z-Board</h1>
+                <h2 class="mt-2 text-center text-lg  text-gray-600 tracking-tighter">Stay Connected</h2>
+            </div>
+            <div
+                class=" relative mt-6 mb-4 flex justify-center items-center"
+                :class="{'invisible' : !hasError}"
+            >
             <span
                 class="max-w-md w-full flex justify-between items-center text-sm tracking-wide py-3.5 px-6 rounded-md align-middle text-gray-800 bg-red-100 border border-red-400"
             >
@@ -20,57 +21,58 @@
                      @click="resetError"
                  />
             </span>
-        </div>
-        <div class="flex justify-center">
-            <div
-                class="max-w-md w-full bg-gray-50 border border-gray-200 sm:px-10 py-8 p-4 rounded-lg shadow-lg relative"
-            >
-                <div class="rounded-md shadow-sm">
-                    <div class="">
-                        <label class="input-label">Email</label>
-                        <input
-                            id="email"
-                            v-model="email"
-                            autofocus
-                            type="text"
-                            :class="{'input-error' : hasError}"
-                            class="w-full input-text"
-                            @input="resetError"
-                        />
+            </div>
+            <div class="flex justify-center">
+                <div
+                    class="max-w-md w-full bg-gray-50 border border-gray-200 sm:px-10 py-8 p-4 rounded-lg shadow-lg relative"
+                >
+                    <div class="rounded-md shadow-sm">
+                        <div class="">
+                            <label class="input-label">Email</label>
+                            <input
+                                id="email"
+                                v-model="email"
+                                autofocus
+                                type="text"
+                                :class="{'input-error' : hasError}"
+                                class="w-full input-text"
+                                @input="resetError"
+                            />
+                        </div>
+                        <div class="mt-6 relative">
+                            <label class="input-label">Password</label>
+
+                            <font-awesome-icon
+                                v-if="isPasswordVisible"
+                                icon="eye-slash"
+                                class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
+                                @click="togglePassword"
+                            />
+
+                            <font-awesome-icon
+                                v-else
+                                icon="eye"
+                                class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
+                                @click="togglePassword"
+                            />
+
+                            <input
+                                id="password"
+                                v-model="password"
+                                :type="passwordFieldType"
+                                :class="{'input-error' : hasError}"
+                                class="w-full input-text"
+                                @input="resetError"
+                            />
+                        </div>
                     </div>
-                    <div class="mt-6 relative">
-                        <label class="input-label">Password</label>
 
-                        <font-awesome-icon
-                            v-if="isPasswordVisible"
-                            icon="eye-slash"
-                            class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
-                            @click="togglePassword"
-                        />
-
-                        <font-awesome-icon
-                            v-else
-                            icon="eye"
-                            class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
-                            @click="togglePassword"
-                        />
-
-                        <input
-                            id="password"
-                            v-model="password"
-                            :type="passwordFieldType"
-                            :class="{'input-error' : hasError}"
-                            class="w-full input-text"
-                            @input="resetError"
-                        />
+                    <div class="mt-8">
+                        <button id="login" type="submit" class="btn w-full" :disabled="hasNoInputEntered || isTryingToLogin">Login</button>
                     </div>
-                </div>
-
-                <div class="mt-8">
-                    <button id="login" class="btn w-full" :disabled="hasNoInputEntered" @click="login">Login</button>
                 </div>
             </div>
-        </div>
+        </form>
     </container>
 </template>
 
@@ -82,7 +84,11 @@ import { onMounted } from "vue";
 import { useAuthStore } from "../../store";
 
 onMounted(() => {
-    store.isLoggedIn().then(() => router.push({ name: "playground" }));
+    store
+        .isStillLoggedIn()
+        .then(() => {
+            router.push({ name: "playground" })
+        });
 });
 
 const store = useAuthStore();
@@ -90,6 +96,7 @@ const email = ref("");
 const password = ref("");
 const passwordFieldType = ref("password");
 const hasError = ref(false);
+const isTryingToLogin = ref(false);
 const errorText = ref("You have entered an invalid email or password.");
 
 const hasNoInputEntered = computed(() => {
@@ -109,13 +116,18 @@ function resetError() {
 }
 
 function login() {
-    //todo rewrite login action to return boolean
+    isTryingToLogin.value = true;
     store
-        .login("admin@example.com", "password")
-        .then(() => router.push({ name: "playground" }))
-        .catch((error: any) => {
-            alert(error);
+        .login(email.value, password.value)
+        .then(() => {
+            router.push({ name: "playground" })
+        })
+        .catch(() => {
+            //as this is only a simple prototype, we assume that the credentials were invalid instead of something else could be gone wrong
+            hasError.value = true
+        })
+        .finally(() => {
+            isTryingToLogin.value = false;
         });
 }
-
 </script>

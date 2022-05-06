@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
 	const store = useAuthStore();
 	if (to.name === "login") {
 		next();
-	} else if (await store.isLoggedIn()) {
+	} else if (store.isAuthenticated) {
 		next();
 	} else {
 		next({ name: "login" });
