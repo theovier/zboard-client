@@ -35,11 +35,21 @@
                     </div>
                     <div class="mt-6 relative">
                         <label class="input-label">Password</label>
-                        <i
-                            :class="[isPasswordVisible() ? 'fa-eye-slash' : 'fa-eye']"
-                            class="fas absolute z-20 mt-2.5 mr-4 right-0 text-gray-500 cursor-pointer"
+
+                        <font-awesome-icon
+                            v-if="isPasswordVisible"
+                            icon="eye-slash"
+                            class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
                             @click="togglePassword"
                         />
+
+                        <font-awesome-icon
+                            v-else
+                            icon="eye"
+                            class="fas absolute z-20 mt-3.5 mr-4 right-0 text-gray-500 cursor-pointer"
+                            @click="togglePassword"
+                        />
+
                         <input
                             id="password"
                             v-model="password"
@@ -68,13 +78,17 @@ const password = ref("");
 const passwordFieldType = ref("password");
 const hasError = ref(true);
 const errorText = ref("Incorrect username or password.");
-const hasNoInputEntered = computed(() => email.value === "" || password.value === "");
+
+const hasNoInputEntered = computed(() => {
+    return email.value === "" || password.value === "";
+});
+
+const isPasswordVisible = computed(() => {
+    return passwordFieldType.value === "text";
+})
 
 function togglePassword() {
-    passwordFieldType.value = isPasswordVisible() ? "password" : "text";
-}
-function isPasswordVisible() {
-    return passwordFieldType.value === "text";
+    passwordFieldType.value = isPasswordVisible.value ? "password" : "text";
 }
 
 function login() {
