@@ -82,14 +82,14 @@ import { onMounted } from "vue";
 import { useAuthStore } from "../../store";
 
 onMounted(() => {
-    //store.isLoggedIn().then(() => router.push({ name: "playground" }));
+    store.isLoggedIn().then(() => router.push({ name: "playground" }));
 });
 
 const store = useAuthStore();
 const email = ref("");
 const password = ref("");
 const passwordFieldType = ref("password");
-const hasError = ref(true);
+const hasError = ref(false);
 const errorText = ref("You have entered an invalid email or password.");
 
 const hasNoInputEntered = computed(() => {
@@ -109,9 +109,13 @@ function resetError() {
 }
 
 function login() {
+    //todo rewrite login action to return boolean
     store
         .login("admin@example.com", "password")
-        .then(() => router.push({ name: "playground" }));
+        .then(() => router.push({ name: "playground" }))
+        .catch((error: any) => {
+            alert(error);
+        });
 }
 
 </script>

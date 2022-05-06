@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
-import Login2 from "../views/auth/Login2.vue";
 import Login from "../views/auth/Login.vue";
 import { useAuthStore } from "../store";
 
@@ -13,11 +12,6 @@ const router = createRouter({
 			component: Login,
 		},
 		{
-			path: "/demo",
-			name: "demo",
-			component: Login2,
-		},
-		{
 			path: "/",
 			name: "playground",
 			component: Playground,
@@ -25,15 +19,15 @@ const router = createRouter({
 	],
 });
 
-// router.beforeEach(async (to, from, next) => {
-// 	const store = useAuthStore();
-// 	if (to.name === "login") {
-// 		next();
-// 	} else if (await store.isLoggedIn()) {
-// 		next();
-// 	} else {
-// 		next({ name: "login" });
-// 	}
-// });
+router.beforeEach(async (to, from, next) => {
+	const store = useAuthStore();
+	if (to.name === "login") {
+		next();
+	} else if (await store.isLoggedIn()) {
+		next();
+	} else {
+		next({ name: "login" });
+	}
+});
 
 export default router;
