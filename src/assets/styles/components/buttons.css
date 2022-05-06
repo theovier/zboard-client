@@ -1,24 +1,23 @@
 @layer components {
+	/* PRIMARY BUTTONS */
+	/* e.g. accept, login, etc. */
 
-    /* PRIMARY BUTTONS */
-    /* e.g. accept, login, etc. */
+	.btn {
+		@apply btn-primary-base border-orange-600 bg-orange-600
+        hover:border-orange-700 hover:bg-orange-700;
+	}
 
-    .btn {
-        @apply btn-primary-base bg-orange-600 border-orange-600
-        hover:bg-orange-700 hover:border-orange-700
-    }
+	.btn:disabled {
+		@apply hover:border-orange-600 hover:bg-orange-600;
+	}
 
-    .btn:disabled {
-        @apply hover:bg-orange-600 hover:border-orange-600
-    }
+	.btn-primary-base {
+		@apply btn-base text-white;
+	}
 
-    .btn-primary-base {
-        @apply btn-base text-white
-    }
-
-    .btn-base {
-        @apply p-1.5 border-2 rounded-md leading-5 font-medium focus:outline-none tracking-wide
-        transition duration-150 ease-in-out cursor-pointer text-center
-        disabled:opacity-50 disabled:cursor-not-allowed
-    }
+	.btn-base {
+		@apply cursor-pointer rounded-md border-2 p-1.5 text-center font-medium leading-5
+        tracking-wide transition duration-150 ease-in-out focus:outline-none
+        disabled:cursor-not-allowed disabled:opacity-50;
+	}
 }

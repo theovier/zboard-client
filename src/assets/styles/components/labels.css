@@ -1,6 +1,5 @@
 @layer components {
-
-    .input-label {
-        @apply block text-sm font-medium tracking-normal mb-1 text-gray-800
-    }
+	.input-label {
+		@apply mb-1 block text-sm font-medium tracking-normal text-gray-800;
+	}
 }
