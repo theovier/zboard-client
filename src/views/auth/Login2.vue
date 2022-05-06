@@ -1,16 +1,16 @@
 <template>
-    <container extra-classes="flex flex-col justify-center">
-
-        <div class="mt-2">
-<!--            <img class="hidden sm:block mx-auto h-16 w-auto" src="@/assets/logo/logo.svg" alt="uc4_logo" />-->
-            <h2 class="mt-6 text-center text-4xl font-medium text-gray-700 tracking-tighter">Z-Board</h2>
+    <container>
+        <div class="mt-24">
+            <img class="hidden sm:block mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+            <h1 class="mt-6 text-center text-3xl font-extrabold text-gray-900 tracking-tighter">Z-Board</h1>
+            <h2 class="mt-2 text-center text-lg  text-gray-600 tracking-tighter">Stay Connected</h2>
         </div>
         <div
-            class=" relative mt-4 flex justify-center items-center"
+            class=" relative mt-6 mb-4 flex justify-center items-center"
             :class="{'invisible' : !hasError}"
         >
             <span
-                class="max-w-sm w-full flex justify-between items-center text-sm tracking-wide py-3.5 px-6 rounded-md align-middle text-gray-800 bg-red-100 border border-red-400"
+                class="max-w-md w-full flex justify-between items-center text-sm tracking-wide py-3.5 px-6 rounded-md align-middle text-gray-800 bg-red-100 border border-red-400"
             >
                 {{ errorText }}
                  <font-awesome-icon icon="xmark" class="cursor-pointer text-red-400" @click="resetError" />
@@ -18,11 +18,11 @@
         </div>
         <div class="flex justify-center">
             <div
-                class="max-w-sm w-full mt-6 bg-gray-50 border border-gray-200 sm:px-6 py-6 p-4 rounded-lg shadow-lg relative"
+                class="max-w-md w-full bg-gray-50 border border-gray-200 sm:px-10 py-8 p-4 rounded-lg shadow-lg relative"
             >
                 <div class="rounded-md shadow-sm">
                     <div class="">
-                        <label class="input-label">Email</label>
+                        <label class="input-label text-gray-800 font-me">Email</label>
                         <input
                             id="email"
                             v-model="email"
@@ -52,7 +52,8 @@
                 </div>
 
                 <div class="mt-8">
-                    <button id="login" class="w-full btn" :disabled="hasNoInputEntered" @click="login">Login</button>
+<!--                    <button id="login" class="w-full btn" :disabled="hasNoInputEntered" @click="login">Login</button>-->
+                    <button id="login" class="w-full bg-indigo-600 text-white p-3 rounded-md" :disabled="hasNoInputEntered" @click="login">Login</button>
                 </div>
             </div>
         </div>

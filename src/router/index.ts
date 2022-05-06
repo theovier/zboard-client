@@ -25,15 +25,15 @@ const router = createRouter({
 	],
 });
 
-router.beforeEach(async (to, from, next) => {
-	const store = useAuthStore();
-	if (to.name === "login") {
-		next();
-	} else if (await store.isLoggedIn()) {
-		next();
-	} else {
-		next({ name: "login" });
-	}
-});
+// router.beforeEach(async (to, from, next) => {
+// 	const store = useAuthStore();
+// 	if (to.name === "login") {
+// 		next();
+// 	} else if (await store.isLoggedIn()) {
+// 		next();
+// 	} else {
+// 		next({ name: "login" });
+// 	}
+// });
 
 export default router;
