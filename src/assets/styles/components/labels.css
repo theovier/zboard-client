@@ -1,0 +1,6 @@
+@layer components {
+
+    .input-label {
+        @apply block text-sm font-medium tracking-normal mb-1 text-gray-800
+    }
+}

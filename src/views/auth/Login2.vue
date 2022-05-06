@@ -22,13 +22,13 @@
             >
                 <div class="rounded-md shadow-sm">
                     <div class="">
-                        <label class="input-label text-gray-800 font-me">Email</label>
+                        <label class="input-label">Email</label>
                         <input
                             id="email"
                             v-model="email"
                             autofocus
                             type="text"
-                            :class="{'error' : hasError}"
+                            :class="{'input-error' : hasError}"
                             class="w-full input-text"
                             @input="resetError"
                         />
@@ -44,7 +44,7 @@
                             id="password"
                             v-model="password"
                             :type="passwordFieldType"
-                            :class="{'error' : hasError}"
+                            :class="{'input-error' : hasError}"
                             class="w-full input-text"
                             @input="resetError"
                         />
@@ -52,8 +52,7 @@
                 </div>
 
                 <div class="mt-8">
-<!--                    <button id="login" class="w-full btn" :disabled="hasNoInputEntered" @click="login">Login</button>-->
-                    <button id="login" class="w-full bg-indigo-600 text-white p-3 rounded-md" :disabled="hasNoInputEntered" @click="login">Login</button>
+                    <button id="login" class="btn w-full" :disabled="hasNoInputEntered" @click="login">Login</button>
                 </div>
             </div>
         </div>
