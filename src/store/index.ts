@@ -22,12 +22,10 @@ export const useAuthStore = defineStore("user", {
 			this.user = user;
 		},
 		login(email: string, password: string) {
-			return authService
-				.login(email, password)
-				.then((response: any) => {
-					let user = response.data;
-					this.onAuthentication(user);
-				})
+			return authService.login(email, password).then((response: any) => {
+				let user = response.data;
+				this.onAuthentication(user);
+			});
 		},
 		isStillLoggedIn() {
 			//todo: check existence of cookie instead of trying to access protected api endpoints.
@@ -37,9 +35,7 @@ export const useAuthStore = defineStore("user", {
 					let user = response.data;
 					this.onAuthentication(user);
 				})
-				.catch(() => {
-
-				})
+				.catch(() => {});
 		},
 	},
 });

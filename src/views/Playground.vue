@@ -18,11 +18,9 @@ import Card from "@/components/Card.vue";
 import { useAuthStore } from "../store";
 const store = useAuthStore();
 
-const user = store.getUser
-let name = "name"
+const user = store.getUser;
+let name = "name";
 if (user) {
-    name = user['name'];
+	name = user["name"];
 }
-
-
 </script>

@@ -5,11 +5,10 @@ function grabCSRFCookie() {
 }
 
 function login(email: string, password: string) {
-	return axiosClient
-		.post(`/login`, {
-			email: email,
-			password: password,
-		});
+	return axiosClient.post(`/login`, {
+		email: email,
+		password: password,
+	});
 }
 
 function getOwnUser() {
