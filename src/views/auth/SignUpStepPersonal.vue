@@ -49,13 +49,19 @@ const name = ref("");
 
 onMounted(() => {
 	store.currentStep = 2;
+	name.value = store.name;
 });
 
 function next() {
+	store.name = name.value;
+
+	//todo send request here.
+
 	router.push({ name: "signupSuccess" });
 }
 
 function back() {
+	store.name = name.value;
 	router.back();
 }
 </script>

@@ -21,4 +21,5 @@ export const useSignupStore = defineStore("signup", {
 		},
 	},
 	actions: {},
+	persist: true,
 });

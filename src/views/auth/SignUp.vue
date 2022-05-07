@@ -34,6 +34,6 @@ import { useSignupStore } from "../../store/signup";
 const store = useSignupStore();
 
 onMounted(() => {
-	store.currentStep = 1;
+	store.$reset();
 });
 </script>

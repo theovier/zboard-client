@@ -13,7 +13,7 @@
 
 		<step
 			subtext="Personal"
-			:progress-percentage="[store.currentStep >= 2 ? 1.0 : 0.0]"
+			:progress-percentage="store.currentStep >= 2 ? 1.0 : 0.0"
 			:is-current="store.currentStep === 2"
 		>
 			<template #icon>
@@ -23,7 +23,7 @@
 
 		<step
 			subtext="Finished"
-			:progress-percentage="[store.currentStep >= 3 ? 1.0 : 0.0]"
+			:progress-percentage="store.currentStep >= 3 ? 1.0 : 0.0"
 			:is-current="store.currentStep === 3"
 		>
 			<template #icon>

@@ -68,6 +68,8 @@ const passwordFieldType = ref("password");
 
 onMounted(() => {
 	store.currentStep = 1;
+	email.value = store.email;
+	password.value = store.password;
 });
 
 const isPasswordVisible = computed(() => {
@@ -79,6 +81,8 @@ function togglePassword() {
 }
 
 function next() {
+	store.email = email.value;
+	store.password = password.value;
 	router.push({ name: "signupStepPersonal" });
 }
 </script>
