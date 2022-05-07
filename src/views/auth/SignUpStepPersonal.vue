@@ -8,7 +8,7 @@
 					<h2 class="my-4 text-xl font-medium">Sign Up</h2>
 					<div class="">
 						<div class="">
-							<label class="input-label">Your Name</label>
+							<label class="input-label">Name</label>
 							<input
 								id="name"
 								v-model="name"
@@ -22,6 +22,7 @@
 					<div class="mt-8 flex w-full justify-end space-x-4">
 						<button
 							id="back"
+							type="button"
 							class="btn-secondary w-24"
 							@click="back"
 						>
@@ -39,10 +40,16 @@
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import router from "../../router";
+import { useSignupStore } from "../../store/signup";
 
+const store = useSignupStore();
 const name = ref("");
+
+onMounted(() => {
+	store.currentStep = 2;
+});
 
 function next() {
 	router.push({ name: "signupSuccess" });

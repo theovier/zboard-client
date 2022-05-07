@@ -1,6 +1,6 @@
 <template>
 	<container>
-		<form @submit.prevent="onNextStep">
+		<form @submit.prevent="next">
 			<div class="mt-4 flex justify-center">
 				<div
 					class="relative w-full max-w-md rounded-lg border-gray-200 p-4 pt-4 pb-8 sm:px-10"
@@ -57,12 +57,18 @@
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import router from "../../router";
+import { useSignupStore } from "../../store/signup";
 
+const store = useSignupStore();
 const email = ref("");
 const password = ref("");
 const passwordFieldType = ref("password");
+
+onMounted(() => {
+	store.currentStep = 1;
+});
 
 const isPasswordVisible = computed(() => {
 	return passwordFieldType.value === "text";
@@ -72,7 +78,7 @@ function togglePassword() {
 	passwordFieldType.value = isPasswordVisible.value ? "password" : "text";
 }
 
-function onNextStep() {
+function next() {
 	router.push({ name: "signupStepPersonal" });
 }
 </script>

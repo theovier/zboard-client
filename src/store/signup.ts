@@ -10,9 +10,6 @@ export const useSignupStore = defineStore("signup", {
 		};
 	},
 	getters: {
-		getCurrentStep(state) {
-			return state.currentStep;
-		},
 		getEmail(state) {
 			return state.email;
 		},
