@@ -1,7 +1,7 @@
 <template>
 	<container>
 		<form @submit.prevent="login">
-			<div class="mt-24">
+			<div class="mt-20">
 				<h1
 					class="mt-6 text-center text-3xl font-extrabold tracking-tighter text-gray-900"
 				>
@@ -30,11 +30,9 @@
 				</span>
 			</div>
 			<div class="flex justify-center">
-				<div
-					class="relative w-full max-w-md rounded-lg border border-gray-200 bg-gray-50 p-4 pt-4 pb-8 shadow-lg sm:px-10"
-				>
+				<div class="relative w-full max-w-md p-4 pt-4 pb-8 sm:px-10">
 					<h2 class="my-4 text-xl font-medium">Log In</h2>
-					<div class="rounded-md shadow-sm">
+					<div class="">
 						<div class="">
 							<label class="input-label">Email</label>
 							<input
@@ -88,6 +86,14 @@
 				</div>
 			</div>
 		</form>
+		<div class="text-center text-sm">
+			Don't have an account?
+			<router-link
+				class="text-blue-600 hover:underline"
+				:to="{ name: 'signup' }"
+				>Sign up.</router-link
+			>
+		</div>
 	</container>
 </template>
 

@@ -2,9 +2,7 @@
 	<container>
 		<form @submit.prevent="next">
 			<div class="mt-4 flex justify-center">
-				<div
-					class="relative w-full max-w-md rounded-lg border-gray-200 p-4 pt-4 pb-8 sm:px-10"
-				>
+				<div class="relative w-full max-w-md p-4 pt-4 pb-8 sm:px-10">
 					<h2 class="my-4 text-xl font-medium">Sign Up</h2>
 					<div class="">
 						<div class="">
