@@ -8,10 +8,18 @@
 					&#127881; Sign Up Successful
 				</h2>
 				<div class="">
-					Welcome, <span class="font-medium">Your Name</span>! We have
-					sent you an email to
-					<span class="font-medium">Your Email</span> with a link to
+					Welcome, <span class="font-medium">{{ name }}</span
+					>! We have sent you an email to
+					<span class="font-medium">{{ email }}</span> with a link to
 					finish up your registration.
+				</div>
+				<div class="mt-2">
+					You can
+					<router-link
+						class="text-blue-600 hover:underline"
+						:to="{ name: 'login' }"
+						>log in here.</router-link
+					>
 				</div>
 			</div>
 		</div>
@@ -20,12 +28,19 @@
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useSignupStore } from "../../store/signup";
 
 const store = useSignupStore();
 
+const email = ref("");
+const name = ref("");
+
 onMounted(() => {
 	store.currentStep = 3;
+	email.value = store.email;
+	name.value = store.name;
+
+	console.log(email.value, name.value, store.password);
 });
 </script>
