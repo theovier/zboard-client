@@ -49,6 +49,7 @@ import Container from "@/views/Container.vue";
 import { onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
+import { SignUpData } from "../../types";
 import auth from "../../network/services/authentication";
 
 const store = useSignupStore();
@@ -61,10 +62,14 @@ onMounted(() => {
 
 function next() {
 	store.name = name.value;
-	store.email;
-	store.password;
 
-	auth.signup(store.email, store.password, store.name)
+	const data: SignUpData = {
+		email: store.email,
+		password: store.password,
+		name: store.name,
+	};
+
+	auth.signup(data)
 		.then(() => {
 			router.push({ name: "signupSuccess" });
 		})

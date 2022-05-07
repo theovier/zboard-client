@@ -1,4 +1,5 @@
 import { axiosClient } from "../client";
+import { SignUpData } from "../../types";
 
 function grabCSRFCookie() {
 	return axiosClient.get(`/csrf-cookie`);
@@ -12,11 +13,11 @@ function login(email: string, password: string) {
 }
 
 //todo create interface for the signup data
-function signup(email: string, password: string, name: string) {
+function signup(data: SignUpData) {
 	return axiosClient.post(`/signup`, {
-		email: email,
-		password: password,
-		name: name,
+		email: data.email,
+		password: data.password,
+		name: data.name,
 	});
 }
 
@@ -36,7 +37,7 @@ export default {
 	getOwnUser() {
 		return getOwnUser();
 	},
-	signup(email: string, password: string, name: string) {
-		return signup(email, password, name);
+	signup(data: SignUpData) {
+		return signup(data);
 	},
 };
