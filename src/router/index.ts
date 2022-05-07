@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
+import SignUpStepAccount from "../views/auth/SignUpStepAccount.vue";
+import SignUpStepPersonal from "../views/auth/SignUpStepPersonal.vue";
+import SignUpSuccess from "../views/auth/SignUpSuccess.vue";
 import { useAuthStore } from "../store";
 
 const router = createRouter({
@@ -17,7 +20,29 @@ const router = createRouter({
 			path: "/signup",
 			name: "signup",
 			component: SignUp,
-			meta: { requiresAuth: false },
+			redirect: {
+				name: "signupStepAccount",
+			},
+			children: [
+				{
+					path: "1",
+					name: "signupStepAccount",
+					component: SignUpStepAccount,
+					meta: { requiresAuth: false },
+				},
+				{
+					path: "2",
+					name: "signupStepPersonal",
+					component: SignUpStepPersonal,
+					meta: { requiresAuth: false },
+				},
+				{
+					path: "success",
+					name: "signupSuccess",
+					component: SignUpSuccess,
+					meta: { requiresAuth: false },
+				},
+			],
 		},
 		{
 			path: "/",
