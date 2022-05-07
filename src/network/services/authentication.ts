@@ -11,6 +11,15 @@ function login(email: string, password: string) {
 	});
 }
 
+//todo create interface for the signup data
+function signup(email: string, password: string, name: string) {
+	return axiosClient.post(`/signup`, {
+		email: email,
+		password: password,
+		name: name,
+	});
+}
+
 function getOwnUser() {
 	return axiosClient.get(`/user`);
 }
@@ -26,5 +35,8 @@ export default {
 	},
 	getOwnUser() {
 		return getOwnUser();
+	},
+	signup(email: string, password: string, name: string) {
+		return signup(email, password, name);
 	},
 };

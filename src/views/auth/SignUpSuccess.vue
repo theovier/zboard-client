@@ -40,7 +40,5 @@ onMounted(() => {
 	store.currentStep = 3;
 	email.value = store.email;
 	name.value = store.name;
-
-	console.log(email.value, name.value, store.password);
 });
 </script>
