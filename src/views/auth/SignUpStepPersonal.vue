@@ -20,11 +20,15 @@
 					</div>
 
 					<div class="mt-8 flex w-full justify-end space-x-4">
-						<button id="back" class="btn w-24" @click="back">
+						<button
+							id="back"
+							class="btn-secondary w-24"
+							@click="back"
+						>
 							Back
 						</button>
 						<button id="next" type="submit" class="btn w-24">
-							Next
+							Finish
 						</button>
 					</div>
 				</div>

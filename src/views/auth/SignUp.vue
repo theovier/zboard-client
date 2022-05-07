@@ -1,6 +1,6 @@
 <template>
 	<container>
-		<form-wizard />
+		<step-indicator class="py-6" />
 		<div class="mt-10">
 			<h1
 				class="mt-6 text-center text-3xl font-extrabold tracking-tighter text-gray-900"
@@ -16,12 +16,16 @@
 		<router-view />
 		<div class="text-center text-sm">
 			Already have account?
-			<a href="#" class="text-blue-600 hover:underline"> Log in.</a>
+			<router-link
+				class="text-blue-600 hover:underline"
+				:to="{ name: 'login' }"
+				>Log in.</router-link
+			>
 		</div>
 	</container>
 </template>
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
-import FormWizard from "../../components/wizard/FormWizard.vue";
+import StepIndicator from "../../components/auth/SignUpStepIndicator.vue";
 </script>
