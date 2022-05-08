@@ -24,20 +24,14 @@
 				</div>
 			</div>
 		</form>
-		<div class="text-center text-sm">
-			Already have account?
-			<router-link
-				class="text-blue-600 hover:underline"
-				:to="{ name: 'login' }"
-				>Log in.</router-link
-			>
-		</div>
+		<link-to-login />
 	</container>
 </template>
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
 import CustomInput from "@/components/input/CustomInput.vue";
+import LinkToLogin from "@/components/auth/LoginLink.vue";
 import { onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
