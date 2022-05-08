@@ -6,13 +6,10 @@
 					<h2 class="my-4 text-xl font-medium">Sign Up</h2>
 					<div class="">
 						<div class="">
-							<label class="input-label">Email</label>
-							<input
-								id="email"
+							<custom-input
 								v-model="email"
-								autofocus
-								type="text"
-								class="input-text w-full"
+								label="Email"
+								:autofocus="true"
 							/>
 						</div>
 
@@ -63,9 +60,13 @@
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
+import CustomInput from "@/components/input/CustomInput.vue";
 import { computed, onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
+
+import { required } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 const store = useSignupStore();
 const email = ref("");
@@ -86,9 +87,29 @@ function togglePassword() {
 	passwordFieldType.value = isPasswordVisible.value ? "password" : "text";
 }
 
-function next() {
+const state = {
+	email,
+	password,
+};
+
+const rules = {
+	email: { required },
+	password: { required },
+};
+
+const $v = useVuelidate(rules, state);
+
+async function next() {
+	const isFormCorrect = await $v.value.$validate();
+	if (isFormCorrect) {
+		console.log("correct");
+	} else {
+		console.log("validation error");
+		return;
+	}
+
 	store.email = email.value;
 	store.password = password.value;
-	router.push({ name: "signupStepPersonal" });
+	await router.push({ name: "signupStepPersonal" });
 }
 </script>
