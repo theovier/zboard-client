@@ -1,6 +1,7 @@
 <template>
 	<container>
 		<div>hi, {{ name }}!</div>
+		<button class="btn-secondary" @click="logout">log out</button>
 		<div class="grid grid-cols-4 grid-rows-5 gap-4">
 			<card class="bg-lime-600" />
 			<card v-for="i in 5" class="bg-blue-900" />
@@ -16,11 +17,18 @@
 import Container from "@/views/Container.vue";
 import Card from "@/components/Card.vue";
 import { useAuthStore } from "../store";
+import router from "../router";
 const store = useAuthStore();
 
 const user = store.getUser;
 let name = "name";
 if (user) {
 	name = user["name"];
+}
+
+function logout() {
+	store.logout().then(() => {
+		router.push({ name: "login" });
+	});
 }
 </script>

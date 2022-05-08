@@ -12,6 +12,10 @@ function login(email: string, password: string) {
 	});
 }
 
+function logout() {
+	return axiosClient.post("/logout");
+}
+
 //todo create interface for the signup data
 function signup(data: SignUpData) {
 	return axiosClient.post(`/signup`, {
@@ -33,6 +37,9 @@ export default {
 		return grabCSRFCookie().then(() => {
 			return login(email, password);
 		});
+	},
+	logout() {
+		return logout();
 	},
 	getOwnUser() {
 		return getOwnUser();
