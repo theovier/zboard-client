@@ -38,7 +38,12 @@ import { computed, onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
 
-import { required, email as mail, minLength } from "@vuelidate/validators";
+import {
+	required,
+	email as mail,
+	minLength,
+	helpers,
+} from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const store = useSignupStore();
@@ -51,6 +56,19 @@ onMounted(() => {
 	password.value = store.password;
 });
 
+const trustedDomain = (email: String) => {
+	const domain = emailDomain(email);
+	if (domain === undefined) {
+		return false;
+	}
+	const trusted = ["theovier.de", "example.com"]; //todo load them by GET request on mounted
+	return trusted.includes(domain);
+};
+
+const emailDomain = (email: String) => {
+	return email.split("@").pop();
+};
+
 const state = {
 	email,
 	password,
@@ -58,8 +76,25 @@ const state = {
 
 const rules = computed(() => {
 	return {
-		email: { required, mail },
-		password: { required, minLength: minLength(8) },
+		email: {
+			//todo do this in the custom input globally
+			required: helpers.withMessage(
+				"This field cannot be empty",
+				required
+			),
+			mail,
+			trustedDomain: helpers.withMessage(
+				"Only addresses from theovier.de or example.com allowed",
+				trustedDomain
+			), //todo can we show this only AFTER mail rule is fulfilled?
+		},
+		password: {
+			required: helpers.withMessage(
+				"This field cannot be empty",
+				required
+			),
+			minLength: minLength(8),
+		},
 	};
 });
 
