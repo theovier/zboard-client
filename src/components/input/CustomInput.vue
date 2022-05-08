@@ -1,6 +1,20 @@
 <template>
-	<div>
+	<div class="relative">
 		<label class="input-label" :for="id">{{ label }}</label>
+		<div v-show="isTypePassword">
+			<font-awesome-icon
+				v-if="isPasswordVisible"
+				icon="eye-slash"
+				class="fas absolute right-0 z-10 mt-3.5 mr-4 cursor-pointer text-gray-500"
+				@click="togglePasswordVisibility"
+			/>
+			<font-awesome-icon
+				v-else
+				icon="eye"
+				class="fas absolute right-0 z-10 mt-3.5 mr-4 cursor-pointer text-gray-500"
+				@click="togglePasswordVisibility"
+			/>
+		</div>
 		<input
 			:id="id"
 			v-model="value"
@@ -31,9 +45,13 @@ onMounted(() => {
 
 let currentType = ref("text");
 
-// const isPasswordVisible = computed(() => {
-// 	return props.type === "password" && currentType.value === "text";
-// });
+const isPasswordVisible = computed(() => {
+	return isTypePassword.value && currentType.value === "text";
+});
+
+const isTypePassword = computed(() => {
+	return props.type === "password";
+});
 
 const id = computed(() => {
 	return props.label.toLowerCase();
@@ -48,7 +66,7 @@ const value = computed({
 	},
 });
 
-// function togglePasswordVisibility() {
-// 	currentType.value = isPasswordVisible.value ? "password" : "text";
-// }
+function togglePasswordVisibility() {
+	currentType.value = isPasswordVisible.value ? "password" : "text";
+}
 </script>
