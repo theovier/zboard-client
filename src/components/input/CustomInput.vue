@@ -22,6 +22,14 @@
 			:type="currentType"
 			class="input-text w-full"
 		/>
+		<div
+			v-for="error in validation.$errors"
+			v-show="hasError"
+			:key="error"
+			class="mt-2 px-1 font-medium text-red-600"
+		>
+			{{ error.$message }}
+		</div>
 	</div>
 </template>
 
@@ -36,6 +44,7 @@ const props = defineProps({
 	autofocus: { type: Boolean, default: false },
 	type: { type: String, default: "text" },
 	modelValue: { type: String, default: "" }, //"modelValue" is used by vue to update v-models
+	validation: { type: Object, default: null },
 });
 const emit = defineEmits(["update:modelValue"]);
 
@@ -62,8 +71,16 @@ const value = computed({
 		return props.modelValue;
 	},
 	set(value: string): void {
+		//props.validation.$touch(); //emulating https://vuelidate-next.netlify.app/guide.html#using-the-model-property
 		emit("update:modelValue", value);
 	},
+});
+
+const hasError = computed(() => {
+	if (!props.validation) {
+		return false;
+	}
+	return props.validation.$error;
 });
 
 function togglePasswordVisibility() {

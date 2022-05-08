@@ -9,11 +9,13 @@
 							v-model="email"
 							label="Email"
 							:autofocus="true"
+							:validation="$v.email"
 						/>
 						<custom-input
 							v-model="password"
 							label="Password"
 							type="password"
+							:validation="$v.password"
 						/>
 					</div>
 					<div class="mt-8 flex w-full justify-end">
@@ -32,11 +34,11 @@
 import Container from "@/views/Container.vue";
 import CustomInput from "@/components/input/CustomInput.vue";
 import LinkToLogin from "@/components/auth/LoginLink.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
 
-import { required } from "@vuelidate/validators";
+import { required, email as mail, minLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const store = useSignupStore();
@@ -54,12 +56,14 @@ const state = {
 	password,
 };
 
-const rules = {
-	email: { required },
-	password: { required },
-};
+const rules = computed(() => {
+	return {
+		email: { required, mail },
+		password: { required, minLength: minLength(8) },
+	};
+});
 
-const $v = useVuelidate(rules, state);
+const $v = useVuelidate(rules, state, { $autoDirty: true });
 
 async function next() {
 	const isFormCorrect = await $v.value.$validate();
