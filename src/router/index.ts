@@ -5,6 +5,9 @@ import SignUp from "../views/auth/SignUp.vue";
 import SignUpStepAccount from "../views/auth/SignUpStepAccount.vue";
 import SignUpStepPersonal from "../views/auth/SignUpStepPersonal.vue";
 import SignUpSuccess from "../views/auth/SignUpSuccess.vue";
+import VerifyEmail from "../views/auth/verify/VerifyEmail.vue";
+import VerifyEmailSuccess from "../views/auth/verify/VerifyEmailSuccess.vue";
+import VerifyEmailAlreadySuccess from "../views/auth/verify/VerifyEmailAlreadySuccess.vue";
 import { useAuthStore } from "../store";
 
 const router = createRouter({
@@ -44,6 +47,26 @@ const router = createRouter({
 				},
 			],
 		},
+		{
+			path: "/email/verify",
+			name: "verify",
+			component: VerifyEmail,
+			children: [
+				{
+					path: "success",
+					name: "emailVerifySuccess",
+					component: VerifyEmailSuccess,
+					meta: { requiresAuth: false },
+				},
+				{
+					path: "already-success",
+					name: "emailAlreadyVerified",
+					component: VerifyEmailAlreadySuccess,
+					meta: { requiresAuth: false },
+				},
+			],
+		},
+
 		{
 			path: "/",
 			name: "playground",
