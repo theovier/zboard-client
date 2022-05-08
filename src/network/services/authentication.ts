@@ -34,9 +34,13 @@ export default {
 		return grabCSRFCookie();
 	},
 	login(email: string, password: string) {
-		return grabCSRFCookie().then(() => {
-			return login(email, password);
-		});
+		return grabCSRFCookie()
+			.then(() => {
+				return login(email, password);
+			})
+			.then(() => {
+				return getOwnUser();
+			});
 	},
 	logout() {
 		return logout();
