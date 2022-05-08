@@ -13,14 +13,6 @@
 					<span class="font-medium">{{ email }}</span> with a link to
 					finish up your registration.
 				</div>
-				<div class="mt-2">
-					You can
-					<router-link
-						class="text-blue-600 hover:underline"
-						:to="{ name: 'login' }"
-						>log in here.</router-link
-					>
-				</div>
 			</div>
 		</div>
 	</container>
