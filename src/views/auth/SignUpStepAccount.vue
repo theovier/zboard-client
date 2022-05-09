@@ -77,22 +77,15 @@ const state = {
 const rules = computed(() => {
 	return {
 		email: {
-			//todo do this in the custom input globally
-			required: helpers.withMessage(
-				"This field cannot be empty",
-				required
-			),
+			required,
 			mail,
 			trustedDomain: helpers.withMessage(
 				"Only addresses from theovier.de or example.com allowed",
 				trustedDomain
-			), //todo can we show this only AFTER mail rule is fulfilled?
+			),
 		},
 		password: {
-			required: helpers.withMessage(
-				"This field cannot be empty",
-				required
-			),
+			required,
 			minLength: minLength(8),
 		},
 	};

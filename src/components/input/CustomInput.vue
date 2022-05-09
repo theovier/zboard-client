@@ -22,13 +22,8 @@
 			:type="currentType"
 			class="input-text w-full"
 		/>
-		<div
-			v-for="error in validation.$errors"
-			v-show="hasError"
-			:key="error"
-			class="mt-2 px-1 font-medium text-red-600"
-		>
-			{{ error.$message }}
+		<div v-show="hasError" class="mt-2 px-1 font-medium text-red-600">
+			{{ firstErrorMessage }}
 		</div>
 	</div>
 </template>
@@ -81,6 +76,26 @@ const hasError = computed(() => {
 		return false;
 	}
 	return props.validation.$error;
+});
+
+const hasNoError = computed(() => {
+	return !hasError.value;
+});
+
+//todo extract into own headless component
+const firstErrorMessage = computed(() => {
+	if (hasNoError.value) {
+		return;
+	}
+	const error = props.validation.$errors[0];
+	const validator = error.$validator;
+
+	switch (validator) {
+		case "required":
+			return "This field cannot be empty";
+		default:
+			return error.$message;
+	}
 });
 
 function togglePasswordVisibility() {
