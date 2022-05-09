@@ -96,14 +96,9 @@ const $v = useVuelidate(rules, state, { $autoDirty: true });
 async function next() {
 	const isFormCorrect = await $v.value.$validate();
 	if (isFormCorrect) {
-		console.log("correct");
-	} else {
-		console.log("validation error");
-		return;
+		store.email = email.value;
+		store.password = password.value;
+		await router.push({ name: "signupStepPersonal" });
 	}
-
-	store.email = email.value;
-	store.password = password.value;
-	await router.push({ name: "signupStepPersonal" });
 }
 </script>

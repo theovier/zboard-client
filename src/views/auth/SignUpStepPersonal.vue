@@ -4,17 +4,12 @@
 			<div class="mt-4 flex justify-center">
 				<div class="relative w-full max-w-md p-4 pt-4 pb-8 sm:px-10">
 					<h2 class="my-4 text-xl font-medium">Sign Up</h2>
-					<div class="">
-						<div class="">
-							<label class="input-label">Name</label>
-							<input
-								id="name"
-								v-model="name"
-								autofocus
-								type="text"
-								class="input-text w-full"
-							/>
-						</div>
+					<div class="space-y-6">
+						<custom-input
+							v-model="name"
+							label="Name"
+							:validation="$v.name"
+						/>
 					</div>
 
 					<div class="mt-8 flex w-full justify-end space-x-4">
@@ -39,23 +34,30 @@
 
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
+import CustomInput from "@/components/input/CustomInput.vue";
 import LinkToLogin from "@/components/auth/LoginLink.vue";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import router from "../../router";
 import { useSignupStore } from "../../store/signup";
 import { SignUpData } from "../../types";
 import auth from "../../network/services/authentication";
+import { required, helpers } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 const store = useSignupStore();
 const name = ref("");
 
 onMounted(() => {
+	//todo auto focus the first input programmatically
 	store.currentStep = 2;
 	name.value = store.name;
 });
 
-function next() {
-	store.name = name.value;
+async function next() {
+	const isFormCorrect = await $v.value.$validate();
+	if (!isFormCorrect) {
+		return;
+	}
 
 	const data: SignUpData = {
 		email: store.email,
@@ -76,4 +78,24 @@ function back() {
 	store.name = name.value;
 	router.back();
 }
+
+const state = {
+	name,
+};
+
+const alphaNumAndSpaceValidator = helpers.regex(/^[a-z\d-_]*$/i);
+
+const rules = computed(() => {
+	return {
+		name: {
+			required,
+			alphaNumAndDotValidator: helpers.withMessage(
+				"The name must only contain letters, numbers, dashes and underscores",
+				alphaNumAndSpaceValidator
+			),
+		},
+	};
+});
+
+const $v = useVuelidate(rules, state, { $autoDirty: true });
 </script>
