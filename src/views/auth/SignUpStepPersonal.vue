@@ -1,5 +1,5 @@
 <template>
-	<container>
+	<div>
 		<form @submit.prevent="next">
 			<div class="mt-4 flex justify-center">
 				<div class="relative w-full max-w-md p-4 pt-4 pb-8 sm:px-10">
@@ -64,11 +64,10 @@
 			</div>
 		</form>
 		<link-to-login />
-	</container>
+	</div>
 </template>
 
 <script lang="ts" setup>
-import Container from "@/views/Container.vue";
 import CustomInput from "@/components/input/CustomInput.vue";
 import LinkToLogin from "@/components/auth/LoginLink.vue";
 import { computed, onMounted, ref } from "vue";
