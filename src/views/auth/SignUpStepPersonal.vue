@@ -13,9 +13,10 @@
 								<div class="flex shrink-0 justify-center">
 									<img
 										id="photo"
-										class="h-24 w-24 rounded-full object-cover"
+										class="h-24 w-24 cursor-pointer rounded-full object-cover"
 										:src="imageSrc"
 										alt="Current profile photo"
+										@click="fileUploadInput.click()"
 									/>
 								</div>
 
@@ -24,9 +25,10 @@
 										>Choose profile photo</span
 									>
 									<input
+										ref="fileUploadInput"
 										accept="image/*"
 										type="file"
-										class="file:bg-violet-50-50 block w-full text-sm text-slate-500 file:mr-4 file:rounded-md file:border-0 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-600 hover:file:bg-orange-600 hover:file:text-white"
+										class="file:bg-violet-50-50 block w-full text-sm text-slate-500 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-600 hover:file:bg-orange-600 hover:file:text-white"
 										@change="onFileChanged($event)"
 									/>
 								</label>
@@ -83,7 +85,8 @@ const isRequestPending = ref(false);
 const name = ref("");
 //todo show max image size
 //todo store file in pinia-store
-const file = ref();
+const fileUploadInput = ref();
+const picture = ref();
 const defaultImageSrc = defaultProfileImageURL;
 const imageSrc = ref(defaultImageSrc);
 
@@ -104,7 +107,7 @@ async function next() {
 		email: store.email,
 		password: store.password,
 		name: store.name,
-		picture: file.value,
+		picture: picture.value,
 	};
 
 	isRequestPending.value = true;
@@ -129,8 +132,8 @@ function back() {
 function onFileChanged($event: Event) {
 	const target = $event.target as HTMLInputElement;
 	if (target && target.files && target.files[0]) {
-		file.value = target.files[0];
-		imageSrc.value = URL.createObjectURL(file.value);
+		picture.value = target.files[0];
+		imageSrc.value = URL.createObjectURL(picture.value);
 	} else {
 		imageSrc.value = defaultImageSrc;
 	}
