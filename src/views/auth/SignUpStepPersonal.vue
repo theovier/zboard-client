@@ -5,6 +5,35 @@
 				<div class="relative w-full max-w-md p-4 pt-4 pb-8 sm:px-10">
 					<h2 class="my-4 text-xl font-medium">Sign Up</h2>
 					<div class="space-y-6">
+						<div class="space-y-4">
+							<label class="input-label" for="photo"
+								>Profile Picture</label
+							>
+							<div class="space-y-6">
+								<div class="flex shrink-0 justify-center">
+									<img
+										id="photo"
+										class="h-24 w-24 rounded-full object-cover"
+										:src="imageSrc"
+										alt="Current profile photo"
+									/>
+								</div>
+
+								<label class="block">
+									<span class="sr-only"
+										>Choose profile photo</span
+									>
+									<input
+										ref="file"
+										accept="image/*"
+										type="file"
+										class="file:bg-violet-50-50 block w-full text-sm text-slate-500 file:mr-4 file:rounded-md file:border-0 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-600 hover:file:bg-orange-600 hover:file:text-white"
+										@change="onFileChanged($event)"
+									/>
+								</label>
+							</div>
+						</div>
+
 						<custom-input
 							v-model="name"
 							label="Name"
@@ -43,9 +72,13 @@ import { SignUpData } from "../../types";
 import auth from "../../network/services/authentication";
 import { required, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import defaultProfileImageURL from "../../assets/images/default-profile-unsplash.jpg";
 
 const store = useSignupStore();
 const name = ref("");
+const file = ref<File | null>();
+const defaultImageSrc = defaultProfileImageURL;
+const imageSrc = ref(defaultImageSrc);
 
 onMounted(() => {
 	//todo auto focus the first input programmatically
@@ -77,6 +110,17 @@ async function next() {
 function back() {
 	store.name = name.value;
 	router.back();
+}
+
+//todo extract to upload-file component
+function onFileChanged($event: Event) {
+	const target = $event.target as HTMLInputElement;
+	if (target && target.files && target.files[0]) {
+		file.value = target.files[0];
+		imageSrc.value = URL.createObjectURL(file.value);
+	} else {
+		imageSrc.value = defaultImageSrc;
+	}
 }
 
 const state = {

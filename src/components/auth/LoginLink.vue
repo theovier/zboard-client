@@ -1,5 +1,5 @@
 <template>
-	<div class="text-center text-sm">
+	<div class="text-center text-sm text-slate-500">
 		Already have account?
 		<router-link
 			class="text-blue-600 hover:underline"

@@ -86,7 +86,7 @@
 				</div>
 			</div>
 		</form>
-		<div class="text-center text-sm">
+		<div class="text-center text-sm text-slate-500">
 			Don't have an account?
 			<router-link
 				class="text-blue-600 hover:underline"
