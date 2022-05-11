@@ -16,12 +16,11 @@ function logout() {
 	return axiosClient.post("/logout");
 }
 
-//todo create interface for the signup data
 function signup(data: SignUpData) {
-	return axiosClient.post(`/signup`, {
-		email: data.email,
-		password: data.password,
-		name: data.name,
+	return axiosClient.post(`/signup`, data, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
 	});
 }
 

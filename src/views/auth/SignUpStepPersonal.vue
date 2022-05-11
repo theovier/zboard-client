@@ -24,7 +24,6 @@
 										>Choose profile photo</span
 									>
 									<input
-										ref="file"
 										accept="image/*"
 										type="file"
 										class="file:bg-violet-50-50 block w-full text-sm text-slate-500 file:mr-4 file:rounded-md file:border-0 file:py-2 file:px-4 file:text-sm file:font-semibold file:text-orange-600 hover:file:bg-orange-600 hover:file:text-white"
@@ -50,7 +49,12 @@
 						>
 							Back
 						</button>
-						<button id="next" type="submit" class="btn w-24">
+						<button
+							id="next"
+							type="submit"
+							:disabled="isRequestPending"
+							class="btn w-24"
+						>
 							Finish
 						</button>
 					</div>
@@ -75,8 +79,11 @@ import { useVuelidate } from "@vuelidate/core";
 import defaultProfileImageURL from "../../assets/images/default-profile-unsplash.jpg";
 
 const store = useSignupStore();
+const isRequestPending = ref(false);
 const name = ref("");
-const file = ref<File | null>();
+//todo show max image size
+//todo store file in pinia-store
+const file = ref();
 const defaultImageSrc = defaultProfileImageURL;
 const imageSrc = ref(defaultImageSrc);
 
@@ -91,19 +98,25 @@ async function next() {
 	if (!isFormCorrect) {
 		return;
 	}
+	store.name = name.value;
 
 	const data: SignUpData = {
 		email: store.email,
 		password: store.password,
 		name: store.name,
+		picture: file.value,
 	};
 
+	isRequestPending.value = true;
 	auth.signup(data)
 		.then(() => {
 			router.push({ name: "signupSuccess" });
 		})
 		.catch((error: any) => {
 			console.log(error);
+		})
+		.finally(() => {
+			isRequestPending.value = false;
 		});
 }
 
