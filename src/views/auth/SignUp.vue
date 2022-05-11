@@ -20,12 +20,4 @@
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
 import StepIndicator from "../../components/auth/SignUpStepIndicator.vue";
-import { onMounted } from "vue";
-import { useSignupStore } from "../../store/signup";
-
-const store = useSignupStore();
-
-onMounted(() => {
-	store.$reset();
-});
 </script>
