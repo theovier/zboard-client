@@ -37,5 +37,13 @@ export const useAuthStore = defineStore("user", {
 				})
 				.catch(() => {});
 		},
+		logout() {
+			return authService
+				.logout()
+				.catch(() => {})
+				.finally(() => {
+					this.$reset();
+				});
+		},
 	},
 });

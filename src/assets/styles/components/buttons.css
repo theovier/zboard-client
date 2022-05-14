@@ -20,4 +20,19 @@
         tracking-wide transition duration-150 ease-in-out focus:outline-none
         disabled:cursor-not-allowed disabled:opacity-50;
 	}
+
+	/* SECONDARY BUTTONS */
+	/* e.g. cancel button next to a primary action button */
+	.btn-secondary {
+		@apply btn-secondary-base border-orange-600 text-orange-600
+		hover:bg-orange-600 hover:text-white;
+	}
+
+	.btn-secondary:disabled {
+		@apply bg-transparent text-orange-600;
+	}
+
+	.btn-secondary-base {
+		@apply btn-base;
+	}
 }
