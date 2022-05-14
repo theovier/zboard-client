@@ -28,7 +28,7 @@
 						: 'rounded-full border-2 border-gray-200 bg-white text-gray-500',
 				]"
 			>
-				<slot name="icon" />
+				<slot />
 			</div>
 		</div>
 
