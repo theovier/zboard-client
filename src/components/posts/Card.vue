@@ -1,6 +1,5 @@
 <template>
 	<div class="rounded-md p-3" :class="randomBackgroundColor">
-		{{ url }}
 		<router-link :to="{ name: 'post', params: { id: 1 } }">
 			<div class="flex h-full flex-col justify-between">
 				<div class="space-y-4 text-sm">
@@ -47,6 +46,16 @@ import Qrcode from "qrcode.vue";
 import { computed } from "vue";
 import router from "../../router";
 
+const relativePostURL = router.resolve({
+	name: "post",
+	params: { id: 1 },
+});
+
+const absolutePostURL = computed(() => {
+	//see https://stackoverflow.com/questions/61153418/is-it-possible-to-get-full-url-including-origin-from-route-in-vuejs
+	return new URL(relativePostURL.href, window.location.href).href;
+});
+
 const colors = [
 	"bg-cyan-100",
 	"bg-lime-100",
@@ -57,16 +66,25 @@ const colors = [
 	"bg-pink-100",
 ];
 
-//todo: let the server set the color?
-const randomBackgroundColor = colors[Math.floor(Math.random() * colors.length)];
+const id = Math.random() * 100;
 
-const relativePostURL = router.resolve({
-	name: "post",
-	params: { id: 1 },
-});
+//todo extract this
+const hashCode = (s: string) => {
+	return s
+		.split("")
+		.reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
+};
 
-const absolutePostURL = computed(() => {
-	//see https://stackoverflow.com/questions/61153418/is-it-possible-to-get-full-url-including-origin-from-route-in-vuejs
-	return new URL(relativePostURL.href, window.location.href).href;
-});
+const mod = (n: number, m: number) => {
+	return ((n % m) + m) % m;
+};
+
+const hashedId = () => {
+	const stringyfiedId = id.toString();
+	return hashCode(stringyfiedId).valueOf();
+};
+
+const hash = hashedId();
+const randomIndex = mod(hash, colors.length);
+const randomBackgroundColor = colors[randomIndex];
 </script>
