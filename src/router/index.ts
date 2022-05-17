@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
+import NotFound from "../views/errors/NotFound.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import SignUpStepAccount from "../views/auth/SignUpStepAccount.vue";
@@ -66,12 +67,18 @@ const router = createRouter({
 				},
 			],
 		},
-
 		{
 			path: "/",
 			name: "playground",
 			component: Playground,
 			meta: { requiresAuth: true },
+		},
+		{
+			//https://router.vuejs.org/guide/essentials/dynamic-matching.html#catch-all-404-not-found-route
+			path: "/:pathMatch(.*)*",
+			name: "NotFound",
+			component: NotFound,
+			meta: { requiresAuth: false },
 		},
 	],
 });
