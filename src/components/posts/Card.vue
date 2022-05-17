@@ -1,6 +1,7 @@
 <template>
 	<div class="rounded-md p-3" :class="randomBackgroundColor">
-		<router-link :to="{ name: 'board' }">
+		{{ url }}
+		<router-link :to="{ name: 'post', params: { id: 1 } }">
 			<div class="flex h-full flex-col justify-between">
 				<div class="space-y-4 text-sm">
 					<div class="flex items-center space-x-4">
@@ -30,7 +31,7 @@
 				</div>
 				<div class="flex justify-end">
 					<qrcode
-						value="hallo"
+						:value="absolutePostURL"
 						:size="70"
 						foreground="#64748b"
 						background="#ff000000"
@@ -43,6 +44,8 @@
 
 <script setup lang="ts">
 import Qrcode from "qrcode.vue";
+import { computed } from "vue";
+import router from "../../router";
 
 const colors = [
 	"bg-cyan-100",
@@ -56,4 +59,14 @@ const colors = [
 
 //todo: let the server set the color?
 const randomBackgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+const relativePostURL = router.resolve({
+	name: "post",
+	params: { id: 1 },
+});
+
+const absolutePostURL = computed(() => {
+	//see https://stackoverflow.com/questions/61153418/is-it-possible-to-get-full-url-including-origin-from-route-in-vuejs
+	return new URL(relativePostURL.href, window.location.href).href;
+});
 </script>

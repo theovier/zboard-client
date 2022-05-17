@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Playground from "../views/Playground.vue";
 import Board from "../views/Board.vue";
+import Post from "../views/posts/Post.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import SignUpStepAccount from "../views/auth/SignUpStepAccount.vue";
@@ -66,6 +67,12 @@ const router = createRouter({
 					meta: { requiresAuth: false },
 				},
 			],
+		},
+		{
+			path: "/post/:id",
+			name: "post",
+			component: Post,
+			meta: { requiresAuth: false },
 		},
 		{
 			path: "/playground",

@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import Card from "@/components/posts/Card.vue";
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 onMounted(() => {
 	changeBackgroundColor();
@@ -26,4 +26,12 @@ onMounted(() => {
 function changeBackgroundColor() {
 	document.body.classList.replace("bg-white", "bg-cyan-900");
 }
+
+function resetBackgroundColor() {
+	document.body.classList.replace("bg-cyan-900", "bg-white");
+}
+
+onUnmounted(() => {
+	resetBackgroundColor();
+});
 </script>
