@@ -5,19 +5,23 @@ export interface SignUpData {
 	picture?: File;
 }
 
+export interface Company {
+	id: number;
+	name: string;
+}
+
 export interface Author {
 	id: number;
 	name: string;
 	avatar_url?: string;
+	company?: Company;
 }
 
 export interface Post {
 	id: number;
 	title: string;
 	author: Author;
-	content: string;
-	created_at: string;
-	updated_at: string;
+	content?: string;
 }
 
 export interface CreatePostRequest {
