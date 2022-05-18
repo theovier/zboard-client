@@ -105,9 +105,14 @@ import { onMounted } from "vue";
 import { useAuthStore } from "../../store";
 
 onMounted(() => {
-	store.isStillLoggedIn().then(() => {
-		router.push({ name: "playground" });
-	});
+	store
+		.isStillLoggedIn()
+		.then(() => {
+			router.push({ name: "board" });
+		})
+		.catch(() => {
+			//nothing
+		});
 });
 
 const store = useAuthStore();
@@ -139,7 +144,11 @@ function login() {
 	store
 		.login(email.value, password.value)
 		.then(() => {
-			router.push({ name: "playground" });
+			/*
+			 * todo make sure that user gets redirected to the site they wanted to visit before login
+			 * see https://stackoverflow.com/a/51034158/6516194
+			 * */
+			router.push({ name: "board" });
 		})
 		.catch(() => {
 			//as this is only a simple prototype, we assume that the credentials were invalid instead of something else could be gone wrong

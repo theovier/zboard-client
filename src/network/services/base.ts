@@ -4,6 +4,7 @@ export default abstract class BaseService {
 	endpoint: string;
 
 	protected constructor(endpoint: string) {
+		//todo pass type for store/delete model instances too
 		this.endpoint = endpoint;
 	}
 

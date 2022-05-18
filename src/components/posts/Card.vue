@@ -1,6 +1,6 @@
 <template>
 	<div class="rounded-md p-3" :class="randomBackgroundColor">
-		<router-link :to="{ name: 'post', params: { id: post.id } }">
+		<router-link :to="{ name: 'post.show', params: { id: post.id } }">
 			<div class="flex h-full flex-col justify-between">
 				<div class="space-y-4 text-sm">
 					<div class="flex items-center space-x-4">
@@ -51,7 +51,7 @@ const props = defineProps({
 });
 
 const relativePostURL = router.resolve({
-	name: "post",
+	name: "post.show",
 	params: { id: props.post.id },
 });
 
