@@ -27,7 +27,7 @@
 				</div>
 				<div class="flex justify-end">
 					<qrcode
-						:value="absoluteLinkURL"
+						:value="absolutePostURL"
 						:size="70"
 						foreground="#64748b"
 						background="#ff000000"
@@ -44,9 +44,8 @@ import router from "../../router";
 import useAbsoluteURL from "../../use/absoluteUrl";
 import usePseudoRandomColor from "../../use/pseudoRandomColor";
 import { Post } from "../../types";
-import { computed, PropType } from "vue";
+import { PropType } from "vue";
 
-//todo click muss au
 const props = defineProps({
 	post: { type: Object as PropType<Post>, required: true },
 	link: { type: String, default: null }, //use to overwrite the default qr code link
@@ -66,15 +65,8 @@ const imageSource =
 		: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80";
 
 const relativePostURL = router.resolve({
-	name: "post.show",
+	name: props.route,
 	params: { id: props.post.id },
 });
 const absolutePostURL = useAbsoluteURL(relativePostURL);
-
-const absoluteLinkURL = computed(() => {
-	if (props.link !== null) {
-		return props.link;
-	}
-	return absolutePostURL;
-});
 </script>

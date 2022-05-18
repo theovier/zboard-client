@@ -1,15 +1,8 @@
 <template>
-	<card
-		class="row-span-2"
-		:post="post"
-		:link="absoluteURL"
-		route="post.create"
-	/>
+	<card class="row-span-2" :post="post" route="post.create" />
 </template>
 
 <script setup lang="ts">
-import router from "../../router";
-import useAbsoluteURL from "../../use/absoluteUrl";
 import { Post, Author, Company } from "../../types";
 import Card from "@/components/posts/Card.vue";
 
@@ -33,10 +26,4 @@ const post: Post = {
 	content: "you can also click on me in your browser.",
 	author: author,
 };
-
-const relativeURL = router.resolve({
-	name: "post.create",
-});
-
-const absoluteURL = useAbsoluteURL(relativeURL);
 </script>
