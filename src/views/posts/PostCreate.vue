@@ -36,6 +36,13 @@
 				/>
 				<div class="mt-8 flex w-full justify-end space-x-4">
 					<button
+						id="cancel"
+						class="btn-secondary w-32"
+						@click="back"
+					>
+						Back
+					</button>
+					<button
 						id="create"
 						type="submit"
 						class="btn w-32"
@@ -58,6 +65,7 @@ import { required, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { CreatePostRequest } from "../../types";
 import { useAuthStore } from "../../store";
+import router from "../../router";
 
 const isRequestPending = ref<boolean>(false);
 const postService = new PostService();
@@ -67,6 +75,10 @@ const content = ref<string>("");
 
 const store = useAuthStore();
 const user = store.getUser;
+
+function back() {
+	router.back();
+}
 
 async function create() {
 	const isFormCorrect = await $v.value.$validate();

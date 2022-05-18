@@ -5,6 +5,7 @@
 			v-if="!isLoading"
 			class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 		>
+			<post-create-card />
 			<card class="h-64" :post="post" v-for="post in posts" />
 
 			<!--			<card class="h-64" v-for="i in 4" />-->
@@ -20,6 +21,7 @@
 
 <script lang="ts" setup>
 import Card from "@/components/posts/Card.vue";
+import PostCreateCard from "@/components/posts/PostCreateCard.vue";
 import { onMounted, onUnmounted, ref } from "vue";
 import PostService from "../network/services/post";
 import { AxiosResponse } from "axios";
