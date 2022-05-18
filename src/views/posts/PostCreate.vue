@@ -5,23 +5,17 @@
 		<div class="text-center text-3xl font-semibold">Create a New Post</div>
 
 		<div class="space-y-5">
-			<div class="flex items-center space-x-4">
-				<img
-					id="profile-picture"
-					class="h-14 w-14 select-none rounded-full object-cover"
-					loading="lazy"
-					src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80"
-					alt="Profile Picture"
-				/>
-				<div class="flex-auto">
-					<div class="font-semibold text-slate-900">
-						{{ user.name }}
-					</div>
-					<div class="mt-0.5 text-slate-500">
-						Universität Paderborn
-					</div>
-				</div>
-			</div>
+			<post-header
+				v-if="user.company"
+				:name="user.name"
+				:img="user.profile_picture_url"
+				:company="user.company.name"
+			/>
+			<post-header
+				v-else
+				:name="user.name"
+				:img="user.profile_picture_url"
+			/>
 			<form class="space-y-5" @submit.prevent="create">
 				<custom-input
 					v-model="title"
@@ -60,6 +54,7 @@
 import PostService from "../../network/services/post";
 import CustomInput from "@/components/input/CustomInput.vue";
 import CustomTextArea from "@/components/input/CustomTextArea.vue";
+import PostHeader from "@/components/posts/PostHeader.vue";
 import { computed, ref } from "vue";
 import { required, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";

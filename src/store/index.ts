@@ -5,7 +5,7 @@ export const useAuthStore = defineStore("user", {
 	state: () => {
 		return {
 			authenticated: false,
-			user: null,
+			user: null, //todo type hint
 		};
 	},
 	getters: {
