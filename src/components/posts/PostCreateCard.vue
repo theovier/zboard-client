@@ -9,8 +9,9 @@ import useSystemAuthor from "../../use/systemAuthor";
 
 const post: Post = {
 	id: 0,
-	title: "Scan Me to Create a New Post",
-	content: "you can also click on me in your browser.",
+	title: "Scan mich um einen neuen Post zu erstellen!",
+	content:
+		"Wenn Du die Seite über deinen Browser besuchst, kannst du auch auf mich klicken.",
 	author: useSystemAuthor(),
 };
 </script>

@@ -6,14 +6,13 @@ export interface SignUpData {
 }
 
 export interface Company {
-	id: number;
 	name: string;
 }
 
 export interface Author {
 	id: number;
 	name: string;
-	avatar_url?: string;
+	profile_picture_url?: string;
 	company?: Company;
 }
 
