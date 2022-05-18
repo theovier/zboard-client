@@ -1,6 +1,6 @@
 <template>
 	<div class="rounded-md p-3" :class="randomBackgroundColor">
-		<router-link :to="{ name: 'post', params: { id: 1 } }">
+		<router-link :to="{ name: 'post', params: { id: post.id } }">
 			<div class="flex h-full flex-col justify-between">
 				<div class="space-y-4 text-sm">
 					<div class="flex items-center space-x-4">
@@ -13,7 +13,7 @@
 						/>
 						<div class="flex-auto">
 							<div class="font-semibold text-slate-900">
-								Lassmiranda De Sivillia
+								{{ post.author.name }}
 							</div>
 							<div class="mt-0.5 text-slate-500">
 								Universität Paderborn
@@ -21,11 +21,8 @@
 						</div>
 					</div>
 					<p class="line-clamp-4">
-						<span class="font-semibold">Verkaufe Tiger:</span>
-						5 Jahre alt, 178cm groß, orange-schwarz gestreift. Er
-						ist ganz lieb und zutraulich. Er war der Tiger in
-						Hangover &#128526;. Er isst hauptsächlich nervige
-						Menschen, die nicht anklopfen.
+						<span class="font-semibold">{{ post.title }}:</span>
+						{{ post.content }}
 					</p>
 				</div>
 				<div class="flex justify-end">
@@ -46,15 +43,18 @@ import Qrcode from "qrcode.vue";
 import router from "../../router";
 import useAbsoluteURL from "../../use/absoluteUrl";
 import usePseudoRandomColor from "../../use/pseudoRandomColor";
+import { Post } from "../../types";
+import { PropType } from "vue";
+
 const props = defineProps({
-	id: { type: Number, default: 1 },
+	post: { type: Object as PropType<Post>, required: true },
 });
 
 const relativePostURL = router.resolve({
 	name: "post",
-	params: { id: props.id },
+	params: { id: props.post.id },
 });
 
 const absolutePostURL = useAbsoluteURL(relativePostURL);
-const randomBackgroundColor = usePseudoRandomColor(props.id);
+const randomBackgroundColor = usePseudoRandomColor(props.post.id);
 </script>

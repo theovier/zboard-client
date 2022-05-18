@@ -16,11 +16,11 @@ import usePseudoRandomColor from "../../use/pseudoRandomColor";
 const postService = new PostService();
 const post = ref<Post>();
 const route = useRoute();
-const id = route.params.id;
+const id = Number(route.params.id);
 
-postService.get(1).then((response: AxiosResponse<Post>) => {
+postService.get(id).then((response: AxiosResponse<Post>) => {
 	post.value = response.data;
 });
 
-const randomBackgroundColor = usePseudoRandomColor(1);
+const randomBackgroundColor = usePseudoRandomColor(id);
 </script>
