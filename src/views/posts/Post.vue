@@ -1,7 +1,7 @@
 <template>
 	<div
 		v-if="!isLoading"
-		class="mx-auto h-full min-h-[400px] max-w-screen-md space-y-6 rounded-md p-3"
+		class="mx-auto h-full min-h-[400px] max-w-screen-md space-y-6 rounded-md p-3 px-8 py-4"
 		:class="randomBackgroundColor"
 	>
 		<post-header
