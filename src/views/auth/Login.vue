@@ -98,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import Container from "@/views/Container.vue";
 import router from "../../router";
 import { onMounted } from "vue";
@@ -148,5 +148,21 @@ function login() {
 		.finally(() => {
 			isTryingToLogin.value = false;
 		});
+}
+
+onMounted(() => {
+	changeBackgroundColor();
+});
+
+onUnmounted(() => {
+	resetBackgroundColor();
+});
+
+function changeBackgroundColor() {
+	document.body.classList.replace("bg-cyan-900", "bg-white");
+}
+
+function resetBackgroundColor() {
+	document.body.classList.replace("bg-white", "bg-cyan-900");
 }
 </script>

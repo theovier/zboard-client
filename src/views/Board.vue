@@ -2,6 +2,7 @@
 	<div class="relative p-10">
 		<div class="fixed top-0 left-0 -z-10 h-full w-full bg-hero-bubbles" />
 		<div
+			v-if="!isLoading"
 			class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 		>
 			<card class="h-64" :post="post" v-for="post in posts" />
@@ -19,7 +20,7 @@
 
 <script lang="ts" setup>
 import Card from "@/components/posts/Card.vue";
-import { onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import PostService from "../network/services/post";
 import { AxiosResponse } from "axios";
 import { Post } from "../types";
@@ -27,21 +28,17 @@ import { Post } from "../types";
 const postService = new PostService();
 const posts = ref<Post[]>([]);
 
-postService.getAll().then((response: AxiosResponse<Post[]>) => {
-	posts.value = response.data;
+//todo use suspense
+const isLoading = ref(true);
+
+onMounted(() => {
+	postService
+		.getAll()
+		.then((response: AxiosResponse<Post[]>) => {
+			posts.value = response.data;
+		})
+		.finally(() => {
+			isLoading.value = false;
+		});
 });
-
-changeBackgroundColor();
-
-onUnmounted(() => {
-	resetBackgroundColor();
-});
-
-function changeBackgroundColor() {
-	document.body.classList.replace("bg-white", "bg-cyan-900");
-}
-
-function resetBackgroundColor() {
-	document.body.classList.replace("bg-cyan-900", "bg-white");
-}
 </script>
