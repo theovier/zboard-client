@@ -18,9 +18,20 @@
 <script lang="ts" setup>
 import Card from "@/components/posts/Card.vue";
 import { onMounted, onUnmounted } from "vue";
+import PostService from "../network/services/post";
+
+const service = new PostService();
 
 onMounted(() => {
 	changeBackgroundColor();
+
+	service.getAll().then((response: any) => {
+		console.log(response);
+	});
+
+	service.get(1).then((response: any) => {
+		console.log(response);
+	});
 });
 
 function changeBackgroundColor() {

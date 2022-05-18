@@ -1,23 +1,23 @@
-import { axiosClient } from "../client";
+import client from "../client";
 import { SignUpData } from "../../types";
 
 function grabCSRFCookie() {
-	return axiosClient.get(`/csrf-cookie`);
+	return client.get(`/csrf-cookie`);
 }
 
 function login(email: string, password: string) {
-	return axiosClient.post(`/login`, {
+	return client.post(`/login`, {
 		email: email,
 		password: password,
 	});
 }
 
 function logout() {
-	return axiosClient.post("/logout");
+	return client.post("/logout");
 }
 
 function signup(data: SignUpData) {
-	return axiosClient.post(`/signup`, data, {
+	return client.post(`/signup`, data, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
@@ -25,7 +25,7 @@ function signup(data: SignUpData) {
 }
 
 function getOwnUser() {
-	return axiosClient.get(`/user`);
+	return client.get(`/user`);
 }
 
 export default {
