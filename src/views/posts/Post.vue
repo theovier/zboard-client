@@ -1,10 +1,9 @@
 <template>
 	<div>
 		<div class="fixed top-0 left-0 -z-10 h-full w-full bg-hero-bubbles" />
-		<container class="p-3">
+		<container v-if="!isLoading" class="p-3">
 			<div
-				v-if="!isLoading"
-				class="mx-auto h-full max-w-screen-lg rounded-md p-3"
+				class="mx-auto h-full max-w-screen-lg space-y-6 rounded-md p-3"
 				:class="randomBackgroundColor"
 			>
 				<div class="flex items-center space-x-4">
@@ -25,12 +24,14 @@
 					</div>
 				</div>
 
-				<div class="text-3xl font-semibold">
-					{{ post.title }}
-				</div>
+				<div class="space-y-2">
+					<div class="text-3xl font-semibold">
+						{{ post.title }}
+					</div>
 
-				<div class="max-w-screen-sm">
-					{{ post.content }}
+					<div class="max-w-screen-sm">
+						{{ post.content }}
+					</div>
 				</div>
 			</div>
 		</container>
