@@ -5,7 +5,6 @@ interface SignupState {
 	email: string;
 	password: string;
 	name: string;
-	picture: string | ArrayBuffer | null;
 }
 
 export const useSignupStore = defineStore("signup", {
@@ -14,7 +13,6 @@ export const useSignupStore = defineStore("signup", {
 		email: "",
 		password: "",
 		name: "",
-		picture: null,
 	}),
 
 	getters: {
@@ -26,9 +24,6 @@ export const useSignupStore = defineStore("signup", {
 		},
 		getName(state) {
 			return state.name;
-		},
-		hasPictureStored(state) {
-			return state.picture !== null;
 		},
 	},
 	actions: {},
