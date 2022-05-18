@@ -43,48 +43,18 @@
 
 <script setup lang="ts">
 import Qrcode from "qrcode.vue";
-import { computed } from "vue";
 import router from "../../router";
+import useAbsoluteURL from "../../use/absoluteUrl";
+import usePseudoRandomColor from "../../use/pseudoRandomColor";
+const props = defineProps({
+	id: { type: Number, default: 1 },
+});
 
 const relativePostURL = router.resolve({
 	name: "post",
-	params: { id: 1 },
+	params: { id: props.id },
 });
 
-const absolutePostURL = computed(() => {
-	//see https://stackoverflow.com/questions/61153418/is-it-possible-to-get-full-url-including-origin-from-route-in-vuejs
-	return new URL(relativePostURL.href, window.location.href).href;
-});
-
-const colors = [
-	"bg-cyan-100",
-	"bg-lime-100",
-	"bg-amber-100",
-	"bg-orange-100",
-	"bg-emerald-100",
-	"bg-sky-100",
-	"bg-pink-100",
-];
-
-const id = Math.random() * 100;
-
-//todo extract this
-const hashCode = (s: string) => {
-	return s
-		.split("")
-		.reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
-};
-
-const mod = (n: number, m: number) => {
-	return ((n % m) + m) % m;
-};
-
-const hashedId = () => {
-	const stringyfiedId = id.toString();
-	return hashCode(stringyfiedId).valueOf();
-};
-
-const hash = hashedId();
-const randomIndex = mod(hash, colors.length);
-const randomBackgroundColor = colors[randomIndex];
+const absolutePostURL = useAbsoluteURL(relativePostURL);
+const randomBackgroundColor = usePseudoRandomColor(props.id);
 </script>

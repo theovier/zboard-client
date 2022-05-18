@@ -17,21 +17,22 @@
 
 <script lang="ts" setup>
 import Card from "@/components/posts/Card.vue";
-import { onMounted, onUnmounted } from "vue";
+import { onUnmounted, ref } from "vue";
 import PostService from "../network/services/post";
+import { AxiosResponse } from "axios";
+import { Post } from "../types";
 
-const service = new PostService();
+const postService = new PostService();
+const posts = ref<Post[]>([]);
 
-onMounted(() => {
-	changeBackgroundColor();
+postService.getAll().then((response: AxiosResponse<Post[]>) => {
+	posts.value = response.data;
+});
 
-	service.getAll().then((response: any) => {
-		console.log(response);
-	});
+changeBackgroundColor();
 
-	service.get(1).then((response: any) => {
-		console.log(response);
-	});
+onUnmounted(() => {
+	resetBackgroundColor();
 });
 
 function changeBackgroundColor() {
@@ -41,8 +42,4 @@ function changeBackgroundColor() {
 function resetBackgroundColor() {
 	document.body.classList.replace("bg-cyan-900", "bg-white");
 }
-
-onUnmounted(() => {
-	resetBackgroundColor();
-});
 </script>

@@ -7,24 +7,15 @@ export default abstract class BaseService {
 		this.endpoint = endpoint;
 	}
 
-	getAll(): Promise<void> {
-		return client.get(`${this.endpoint}`).then((response: any) => {
-			return response.data.data;
-		});
+	getAll(): Promise<any> {
+		return client.get(`${this.endpoint}`);
 	}
 
-	get(id: number): Promise<void> {
-		return client.get(`${this.endpoint}/${id}`).then((response: any) => {
-			return response.data.data;
-		});
+	get(id: number): Promise<any> {
+		return client.get(`${this.endpoint}/${id}`);
 	}
 
-	store(model: any) {
+	store(model: any): Promise<any> {
 		return client.post(`${this.endpoint}`, model);
 	}
-
-	//
-	// update(model: any) {}
-	//
-	// destroy(model: any) {}
 }
