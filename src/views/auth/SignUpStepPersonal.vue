@@ -125,6 +125,7 @@ async function next() {
 	};
 
 	isRequestPending.value = true;
+	await auth.grabCSRFCookie();
 	auth.signup(data)
 		.then(() => {
 			router.push({ name: "signupSuccess" });
