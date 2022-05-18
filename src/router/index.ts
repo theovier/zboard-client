@@ -103,7 +103,7 @@ router.beforeEach(async (to, from, next) => {
 		if (store.isAuthenticated) {
 			next();
 		} else {
-			next({ name: "login" });
+			next({ name: "login", query: { redirect: to.fullPath } });
 		}
 	} else {
 		next();

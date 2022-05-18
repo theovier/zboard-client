@@ -103,6 +103,7 @@ import Container from "@/views/Container.vue";
 import router from "../../router";
 import { onMounted } from "vue";
 import { useAuthStore } from "../../store";
+import { useRoute } from "vue-router";
 
 onMounted(() => {
 	store
@@ -139,16 +140,20 @@ function resetError() {
 	hasError.value = false;
 }
 
+const route = useRoute();
+console.log(route.query["redirect"]);
+
 function login() {
 	isTryingToLogin.value = true;
 	store
 		.login(email.value, password.value)
 		.then(() => {
-			/*
-			 * todo make sure that user gets redirected to the site they wanted to visit before login
-			 * see https://stackoverflow.com/a/51034158/6516194
-			 * */
-			router.push({ name: "board" });
+			const redirect = route.query["redirect"];
+			if (redirect !== undefined) {
+				router.replace(`${redirect}`);
+			} else {
+				router.push({ name: "board" });
+			}
 		})
 		.catch(() => {
 			//as this is only a simple prototype, we assume that the credentials were invalid instead of something else could be gone wrong
