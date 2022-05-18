@@ -1,7 +1,7 @@
 <template>
 	<div
 		v-if="!isLoading"
-		class="mx-auto h-full max-w-screen-lg space-y-6 rounded-md p-3"
+		class="mx-auto h-full min-h-[400px] max-w-screen-md space-y-6 rounded-md p-3"
 		:class="randomBackgroundColor"
 	>
 		<post-header
@@ -21,7 +21,7 @@
 				{{ post.title }}
 			</div>
 
-			<div class="max-w-screen-sm">
+			<div class="">
 				{{ post.content }}
 			</div>
 		</div>
