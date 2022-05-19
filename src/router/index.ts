@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Playground from "../views/Playground.vue";
+import Board from "../views/Board.vue";
+import PostBase from "../views/posts/PostBase.vue";
+import Post from "../views/posts/Post.vue";
+import PostCreate from "../views/posts/PostCreate.vue";
 import Login from "../views/auth/Login.vue";
 import SignUp from "../views/auth/SignUp.vue";
 import SignUpStepAccount from "../views/auth/SignUpStepAccount.vue";
@@ -66,12 +69,29 @@ const router = createRouter({
 				},
 			],
 		},
-
+		{
+			path: "/post",
+			component: PostBase,
+			children: [
+				{
+					path: ":id",
+					name: "post.show",
+					component: Post,
+					meta: { requiresAuth: false },
+				},
+				{
+					path: "create",
+					name: "post.create",
+					component: PostCreate,
+					meta: { requiresAuth: true },
+				},
+			],
+		},
 		{
 			path: "/",
-			name: "playground",
-			component: Playground,
-			meta: { requiresAuth: true },
+			name: "board",
+			component: Board,
+			meta: { requiresAuth: false },
 		},
 	],
 });
@@ -79,10 +99,11 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
 	const store = useAuthStore();
 	if (to.meta.requiresAuth) {
+		console.log(store.isAuthenticated);
 		if (store.isAuthenticated) {
 			next();
 		} else {
-			next({ name: "login" });
+			next({ name: "login", query: { redirect: to.fullPath } });
 		}
 	} else {
 		next();

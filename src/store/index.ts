@@ -5,7 +5,7 @@ export const useAuthStore = defineStore("user", {
 	state: () => {
 		return {
 			authenticated: false,
-			user: null,
+			user: null, //todo type hint
 		};
 	},
 	getters: {
@@ -29,13 +29,10 @@ export const useAuthStore = defineStore("user", {
 		},
 		isStillLoggedIn() {
 			//todo: check existence of cookie instead of trying to access protected api endpoints.
-			return authService
-				.getOwnUser()
-				.then((response: any) => {
-					let user = response.data;
-					this.onAuthentication(user);
-				})
-				.catch(() => {});
+			return authService.getOwnUser().then((response: any) => {
+				let user = response.data;
+				this.onAuthentication(user);
+			});
 		},
 		logout() {
 			return authService
@@ -46,4 +43,5 @@ export const useAuthStore = defineStore("user", {
 				});
 		},
 	},
+	persist: true,
 });

@@ -20,4 +20,21 @@
 <script lang="ts" setup>
 import Container from "@/views/Container.vue";
 import StepIndicator from "../../components/auth/SignUpStepIndicator.vue";
+import { onMounted, onUnmounted } from "vue";
+
+onMounted(() => {
+	changeBackgroundColor();
+});
+
+onUnmounted(() => {
+	resetBackgroundColor();
+});
+
+function changeBackgroundColor() {
+	document.body.classList.replace("bg-cyan-900", "bg-white");
+}
+
+function resetBackgroundColor() {
+	document.body.classList.replace("bg-white", "bg-cyan-900");
+}
 </script>

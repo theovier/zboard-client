@@ -98,16 +98,22 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import Container from "@/views/Container.vue";
 import router from "../../router";
 import { onMounted } from "vue";
 import { useAuthStore } from "../../store";
+import { useRoute } from "vue-router";
 
 onMounted(() => {
-	store.isStillLoggedIn().then(() => {
-		router.push({ name: "playground" });
-	});
+	store
+		.isStillLoggedIn()
+		.then(() => {
+			router.push({ name: "board" });
+		})
+		.catch(() => {
+			//nothing
+		});
 });
 
 const store = useAuthStore();
@@ -134,12 +140,20 @@ function resetError() {
 	hasError.value = false;
 }
 
+const route = useRoute();
+console.log(route.query["redirect"]);
+
 function login() {
 	isTryingToLogin.value = true;
 	store
 		.login(email.value, password.value)
 		.then(() => {
-			router.push({ name: "playground" });
+			const redirect = route.query["redirect"];
+			if (redirect !== undefined) {
+				router.replace(`${redirect}`);
+			} else {
+				router.push({ name: "board" });
+			}
 		})
 		.catch(() => {
 			//as this is only a simple prototype, we assume that the credentials were invalid instead of something else could be gone wrong
@@ -148,5 +162,21 @@ function login() {
 		.finally(() => {
 			isTryingToLogin.value = false;
 		});
+}
+
+onMounted(() => {
+	changeBackgroundColor();
+});
+
+onUnmounted(() => {
+	resetBackgroundColor();
+});
+
+function changeBackgroundColor() {
+	document.body.classList.replace("bg-cyan-900", "bg-white");
+}
+
+function resetBackgroundColor() {
+	document.body.classList.replace("bg-white", "bg-cyan-900");
 }
 </script>

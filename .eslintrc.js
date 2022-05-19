@@ -17,5 +17,5 @@ module.exports = {
 			},
 		],
 	},
-	ignorePatterns: ["**/src/views/Playground.vue"],
+	ignorePatterns: ["**/src/views/Board.vue"],
 };

@@ -84,30 +84,15 @@ const isRequestPending = ref(false);
 const name = ref("");
 //todo show max image size
 
-const fileReader = new FileReader();
 const fileUploadInput = ref();
 const pictureFile = ref();
 const defaultImageSrc = defaultProfileImageURL;
-const imageSrc = ref();
-
-fileReader.addEventListener("loadend", function () {
-	imageSrc.value = fileReader.result;
-	store.picture = fileReader.result;
-	pictureFile.value = fileReader.result;
-});
+const imageSrc = ref(defaultImageSrc);
 
 onMounted(async () => {
 	//todo auto focus the first input programmatically
 	store.currentStep = 2;
 	name.value = store.name;
-
-	if (store.hasPictureStored) {
-		//todo only issue is that the file input thinks it is empty and we cannot set values on it so it displays "no file chosen"
-		imageSrc.value = store.picture;
-		pictureFile.value = store.picture;
-	} else {
-		imageSrc.value = defaultImageSrc;
-	}
 });
 
 async function next() {
@@ -125,6 +110,7 @@ async function next() {
 	};
 
 	isRequestPending.value = true;
+	await auth.grabCSRFCookie();
 	auth.signup(data)
 		.then(() => {
 			router.push({ name: "signupSuccess" });
@@ -146,7 +132,8 @@ function back() {
 function onFileChanged($event: Event) {
 	const target = $event.target as HTMLInputElement;
 	if (target && target.files && target.files[0]) {
-		fileReader.readAsDataURL(target.files[0]);
+		pictureFile.value = target.files[0];
+		imageSrc.value = URL.createObjectURL(pictureFile.value);
 	} else {
 		imageSrc.value = defaultImageSrc;
 	}
