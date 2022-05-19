@@ -13,8 +13,8 @@
 			/>
 			<post-header v-else :name="me.name" :img="me.profile_picture_url" />
 
-			<form class="space-y-5" @submit.prevent="sendReply">
-				<custom-text-area v-model="reply" label="Content" :rows="7" />
+			<form class="space-y-5" @submit.prevent="postComment">
+				<custom-text-area v-model="comment" label="Content" :rows="7" />
 				<div class="mt-8 flex w-full justify-end space-x-4">
 					<button
 						id="cancel"
@@ -40,30 +40,48 @@
 <script lang="ts" setup>
 //todo extract similar components from PostCreate and ReplySection
 
-import { Post } from "../../types";
+import { CreateCommentRequest, Post } from "../../types";
 import { computed, PropType } from "vue";
 import CustomTextArea from "@/components/input/CustomTextArea.vue";
 import PostHeader from "@/components/posts/PostHeader.vue";
 import { ref } from "vue";
 import { useAuthStore } from "../../store";
 import router from "../../router";
+import CommentService from "../../network/services/comment";
 
-defineProps({
+const props = defineProps({
 	post: { type: Object as PropType<Post>, required: true },
 });
 
+const commentService = new CommentService();
 const store = useAuthStore();
 const me = store.getUser;
 const isRequestPending = ref<boolean>(false);
-const reply = ref<string>("");
+const comment = ref<string>("");
 
 const hasNoInputEntered = computed(() => {
-	return reply.value === "";
+	return comment.value === "";
 });
 
 function back() {
 	router.back();
 }
 
-function sendReply() {}
+function postComment() {
+	isRequestPending.value = true;
+	const payload: CreateCommentRequest = {
+		post_id: props.post.id,
+		content: comment.value,
+	};
+
+	commentService
+		.store(payload)
+		.then(() => {
+			alert("Reply sent");
+			router.push({ name: "board" });
+		})
+		.finally(() => {
+			isRequestPending.value = false;
+		});
+}
 </script>

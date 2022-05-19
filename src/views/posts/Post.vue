@@ -26,7 +26,7 @@
 				</div>
 			</div>
 		</div>
-		<reply-section
+		<comment-section
 			v-if="me.id !== post.author.id"
 			:post="post"
 			:class="randomBackgroundColor"
@@ -42,7 +42,7 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import usePseudoRandomColor from "../../use/pseudoRandomColor";
 import PostHeader from "@/components/posts/PostHeader.vue";
-import ReplySection from "@/components/posts/ReplySection.vue";
+import CommentSection from "@/components/posts/CommentSection.vue";
 import { useAuthStore } from "../../store";
 
 const isLoading = ref(true);
