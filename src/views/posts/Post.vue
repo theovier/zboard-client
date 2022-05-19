@@ -1,30 +1,36 @@
 <template>
-	<div
-		v-if="!isLoading"
-		class="mx-auto h-full min-h-[400px] max-w-screen-md space-y-6 rounded-md p-3 px-8 py-4"
-		:class="randomBackgroundColor"
-	>
-		<post-header
-			v-if="post.author.company"
-			:name="post.author.name"
-			:img="post.author.profile_picture_url"
-			:company="post.author.company.name"
-		/>
-		<post-header
-			v-else
-			:name="post.author.name"
-			:img="post.author.profile_picture_url"
-		/>
+	<div v-if="!isLoading" class="mx-auto max-w-screen-md space-y-12">
+		<div
+			class="min-h-[400px] space-y-6 rounded-md p-3 px-8 py-4"
+			:class="randomBackgroundColor"
+		>
+			<post-header
+				v-if="post.author.company"
+				:name="post.author.name"
+				:img="post.author.profile_picture_url"
+				:company="post.author.company.name"
+			/>
+			<post-header
+				v-else
+				:name="post.author.name"
+				:img="post.author.profile_picture_url"
+			/>
 
-		<div class="space-y-2">
-			<div class="text-3xl font-semibold">
-				{{ post.title }}
-			</div>
+			<div class="space-y-2">
+				<div class="text-3xl font-semibold">
+					{{ post.title }}
+				</div>
 
-			<div class="">
-				{{ post.content }}
+				<div class="">
+					{{ post.content }}
+				</div>
 			</div>
 		</div>
+		<reply-section
+			v-if="me.id !== post.author.id"
+			:post="post"
+			:class="randomBackgroundColor"
+		/>
 	</div>
 </template>
 
@@ -36,12 +42,16 @@ import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import usePseudoRandomColor from "../../use/pseudoRandomColor";
 import PostHeader from "@/components/posts/PostHeader.vue";
+import ReplySection from "@/components/posts/ReplySection.vue";
+import { useAuthStore } from "../../store";
 
 const isLoading = ref(true);
 const postService = new PostService();
 const post = ref<Post>();
 const route = useRoute();
 const id = Number(route.params.id);
+const store = useAuthStore();
+const me = store.getUser;
 
 onMounted(() => {
 	postService
