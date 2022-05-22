@@ -6,16 +6,12 @@
 
 		<div class="space-y-5">
 			<post-header
-				v-if="user.company"
-				:name="user.name"
-				:img="user.profile_picture_url"
-				:company="user.company.name"
+				v-if="me.company"
+				:name="me.name"
+				:img="me.profile_picture_url"
+				:company="me.company.name"
 			/>
-			<post-header
-				v-else
-				:name="user.name"
-				:img="user.profile_picture_url"
-			/>
+			<post-header v-else :name="me.name" :img="me.profile_picture_url" />
 			<form class="space-y-5" @submit.prevent="create">
 				<custom-input
 					v-model="title"
@@ -58,7 +54,7 @@ import PostHeader from "@/components/posts/PostHeader.vue";
 import { computed, ref } from "vue";
 import { required, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
-import { CreatePostRequest } from "../../types";
+import { Author, CreatePostRequest } from "../../types";
 import { useAuthStore } from "../../store";
 import router from "../../router";
 
@@ -69,7 +65,7 @@ const title = ref<string>("");
 const content = ref<string>("");
 
 const store = useAuthStore();
-const user = store.getUser;
+const me: Author = store.getUser!;
 
 function back() {
 	router.back();

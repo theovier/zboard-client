@@ -1,5 +1,8 @@
 <template>
-	<div v-if="!isLoading" class="mx-auto max-w-screen-md space-y-12">
+	<div
+		v-if="!isLoading && post !== undefined"
+		class="mx-auto max-w-screen-md space-y-12"
+	>
 		<div
 			class="min-h-[400px] space-y-6 rounded-md p-3 px-8 py-4"
 			:class="randomBackgroundColor"
@@ -37,7 +40,7 @@
 <script lang="ts" setup>
 import PostService from "../../network/services/post";
 import { AxiosResponse } from "axios";
-import { Post } from "../../types";
+import { Author, Post } from "../../types";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import usePseudoRandomColor from "../../use/pseudoRandomColor";
@@ -51,7 +54,7 @@ const post = ref<Post>();
 const route = useRoute();
 const id = Number(route.params.id);
 const store = useAuthStore();
-const me = store.getUser;
+const me: Author = store.getUser!;
 
 onMounted(() => {
 	postService
