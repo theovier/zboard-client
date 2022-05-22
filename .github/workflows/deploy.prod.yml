@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: 22
           key: ${{ secrets.SSHKEY }}
-          script: "cd ~/zboard-client && .scripts/deploy.sh"
+          script: "cd ~/zboard-client && .scripts/build.sh"
