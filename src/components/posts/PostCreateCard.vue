@@ -1,5 +1,5 @@
 <template>
-	<card class="row-span-2" :post="post" route="post.create" />
+	<card class="row-span-2 min-h-[250px]" :post="post" route="post.create" />
 </template>
 
 <script setup lang="ts">
