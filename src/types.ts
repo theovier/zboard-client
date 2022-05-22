@@ -27,3 +27,8 @@ export interface CreatePostRequest {
 	title: string;
 	content?: string;
 }
+
+export interface CreateCommentRequest {
+	post_id: number;
+	content: string;
+}

@@ -19,7 +19,7 @@
 						{{ post.content }}
 					</p>
 				</div>
-				<div class="flex justify-end">
+				<div class="hidden justify-end md:flex">
 					<qrcode
 						:value="absolutePostURL"
 						:size="70"

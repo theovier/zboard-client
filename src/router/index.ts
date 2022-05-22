@@ -77,7 +77,7 @@ const router = createRouter({
 					path: ":id",
 					name: "post.show",
 					component: Post,
-					meta: { requiresAuth: false },
+					meta: { requiresAuth: true },
 				},
 				{
 					path: "create",

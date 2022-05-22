@@ -91,7 +91,7 @@ async function create() {
 		.store(payload)
 		.then(() => {
 			alert("Post created");
-			//todo navigate back to board with success toast?
+			router.push({ name: "board" });
 		})
 		.finally(() => {
 			isRequestPending.value = false;
