@@ -40,7 +40,7 @@
 <script lang="ts" setup>
 //todo extract similar components from PostCreate and ReplySection
 
-import { CreateCommentRequest, Post } from "../../types";
+import { Author, CreateCommentRequest, Post } from "../../types";
 import { computed, PropType } from "vue";
 import CustomTextArea from "@/components/input/CustomTextArea.vue";
 import PostHeader from "@/components/posts/PostHeader.vue";
@@ -55,7 +55,7 @@ const props = defineProps({
 
 const commentService = new CommentService();
 const store = useAuthStore();
-const me = store.getUser;
+const me: Author = store.getUser!;
 const isRequestPending = ref<boolean>(false);
 const comment = ref<string>("");
 
