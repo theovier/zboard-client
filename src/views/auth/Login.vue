@@ -141,7 +141,6 @@ function resetError() {
 }
 
 const route = useRoute();
-console.log(route.query["redirect"]);
 
 function login() {
 	isTryingToLogin.value = true;

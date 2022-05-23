@@ -20,7 +20,10 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			component: Login,
-			meta: { requiresAuth: false },
+			meta: {
+				requiresAuth: false,
+				hideNavbar: true,
+			},
 		},
 		{
 			path: "/signup",
@@ -34,19 +37,28 @@ const router = createRouter({
 					path: "1",
 					name: "signupStepAccount",
 					component: SignUpStepAccount,
-					meta: { requiresAuth: false },
+					meta: {
+						requiresAuth: false,
+						hideNavbar: true,
+					},
 				},
 				{
 					path: "2",
 					name: "signupStepPersonal",
 					component: SignUpStepPersonal,
-					meta: { requiresAuth: false },
+					meta: {
+						requiresAuth: false,
+						hideNavbar: true,
+					},
 				},
 				{
 					path: "success",
 					name: "signupSuccess",
 					component: SignUpSuccess,
-					meta: { requiresAuth: false },
+					meta: {
+						requiresAuth: false,
+						hideNavbar: true,
+					},
 				},
 			],
 		},
@@ -59,13 +71,19 @@ const router = createRouter({
 					path: "success",
 					name: "emailVerifySuccess",
 					component: VerifyEmailSuccess,
-					meta: { requiresAuth: false },
+					meta: {
+						requiresAuth: false,
+						hideNavbar: true,
+					},
 				},
 				{
 					path: "already-success",
 					name: "emailAlreadyVerified",
 					component: VerifyEmailAlreadySuccess,
-					meta: { requiresAuth: false },
+					meta: {
+						requiresAuth: false,
+						hideNavbar: true,
+					},
 				},
 			],
 		},
