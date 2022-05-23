@@ -34,6 +34,10 @@ const posts = ref<Post[]>([]);
 const isLoading = ref(true);
 
 onMounted(() => {
+	window.Echo.channel("channel").listen("Hello", (e: any) => {
+		console.log(e);
+	});
+
 	postService
 		.getAll()
 		.then((response: AxiosResponse<Post[]>) => {
