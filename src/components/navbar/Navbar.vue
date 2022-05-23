@@ -3,7 +3,7 @@
 		v-if="!$route.meta.hideNavbar"
 		class="hidden h-12 w-full items-center justify-end bg-slate-500 px-12 text-slate-200 sm:flex"
 	>
-		<div v-if="isAuthenticated" class="flex items-center">
+		<div v-if="store.isAuthenticated" class="flex items-center">
 			<Menu as="div" class="relative">
 				<MenuButton
 					as="div"
@@ -12,7 +12,7 @@
 					<img
 						id="profile-picture"
 						class="h-8 w-8 select-none rounded-full object-cover"
-						src="https://images.unsplash.com/photo-1517849845537-4d257902454a?crop=entropy&amp;cs=tinysrgb&amp;fm=jpg&amp;ixlib=rb-1.2.1&amp;q=80&amp;raw_url=true&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=735"
+						:src="store.getUser.profile_picture_url"
 						alt="Profile Picture"
 					/>
 					<font-awesome-icon
@@ -29,7 +29,7 @@
 					leave-to-class="transform scale-95 opacity-0"
 				>
 					<MenuItems
-						class="absolute right-0 z-20 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+						class="absolute right-0 z-20 mt-2 min-w-[12rem] origin-top-right divide-y divide-gray-100 rounded-md bg-white text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
 					>
 						<div class="p-2">
 							<MenuItem>
@@ -37,7 +37,9 @@
 									class="cursor-default p-2 font-normal text-gray-900"
 								>
 									Signed in as
-									<span class="font-medium">user</span>
+									<span class="font-medium">{{
+										store.getUser.name
+									}}</span>
 								</div>
 							</MenuItem>
 						</div>
@@ -63,7 +65,7 @@
 								]"
 							>
 								<button class="group flex w-full items-center">
-									Sign out
+									Log out
 								</button>
 							</div>
 						</MenuItem>
@@ -83,12 +85,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { useAuthStore } from "../../store";
 
-const isAuthenticated = ref(true);
+const store = useAuthStore();
 
 function logout() {
-	console.log("logout");
+	store.logout();
 }
 </script>
