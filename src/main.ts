@@ -18,6 +18,7 @@ createApp(App)
 	.use(VueAxios, axios)
 	.mount("#app");
 
+//todo move into own file
 declare global {
 	// eslint-disable-next-line no-unused-vars
 	interface Window {
@@ -25,15 +26,18 @@ declare global {
 		Echo: any;
 	}
 }
+const PUSHER_HOST = import.meta.env.VITE_PUSHER_HOST;
+const PUSHER_PORT = import.meta.env.VITE_PUSHER_PORT;
+const PUSHER_APP_KEY = import.meta.env.VITE_PUSHER_APP_KEY;
+
 window.Pusher = Pusher;
 window.Echo = new Echo({
 	broadcaster: "pusher",
-	key: "local",
-	cluster: "mt1",
-	secret: "local",
-	wsHost: "localhost",
-	wsPort: 6001,
+	key: PUSHER_APP_KEY,
+	wsHost: PUSHER_HOST,
+	wsPort: PUSHER_PORT,
 	forceTLS: false,
-	encrypted: false,
+	encrypted: true,
 	disableStats: true,
+	enabledTransports: ["ws", "wss"],
 });
