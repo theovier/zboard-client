@@ -26,6 +26,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import PostService from "../network/services/post";
 import { AxiosResponse } from "axios";
 import { Post } from "../types";
+import echo from "../network/echo";
 
 const postService = new PostService();
 const posts = ref<Post[]>([]);
@@ -34,7 +35,7 @@ const posts = ref<Post[]>([]);
 const isLoading = ref(true);
 
 onMounted(() => {
-	window.Echo.channel("channel").listen("Hello", (e: any) => {
+	echo.channel("posts").listen("Hello", (e: any) => {
 		console.log(e);
 	});
 
