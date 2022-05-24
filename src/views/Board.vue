@@ -26,8 +26,8 @@ const posts = ref<Post[]>([]);
 const isLoading = ref(true);
 
 onMounted(() => {
-	echo.channel("posts").listen("Hello", (e: any) => {
-		console.log(e);
+	echo.channel("posts").listen(".PostCreated", (post: Post) => {
+		posts.value.push(post);
 	});
 
 	postService
