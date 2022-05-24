@@ -1,7 +1,11 @@
 module.exports = {
 	content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
 	theme: {
-		extend: {},
+		extend: {
+			screens: {
+				"4k": "3840px",
+			},
+		},
 	},
 	plugins: [
 		require("@tailwindcss/forms"),
