@@ -18,6 +18,7 @@ import { onMounted, ref } from "vue";
 import PostService from "../network/services/post";
 import { AxiosResponse } from "axios";
 import { Post } from "../types";
+import echo from "../network/echo";
 
 const postService = new PostService();
 const posts = ref<Post[]>([]);
@@ -25,6 +26,10 @@ const posts = ref<Post[]>([]);
 const isLoading = ref(true);
 
 onMounted(() => {
+	echo.channel("posts").listen(".PostCreated", (post: Post) => {
+		posts.value.push(post);
+	});
+
 	postService
 		.getAll()
 		.then((response: AxiosResponse<Post[]>) => {
