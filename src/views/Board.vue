@@ -5,6 +5,8 @@
 			v-if="!isLoading"
 			class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 4k:grid-cols-8 4k:gap-12"
 		>
+			<div class="relative bg-red-200"></div>
+
 			<post-create-card />
 			<card class="h-64" :post="post" v-for="post in posts" />
 		</div>

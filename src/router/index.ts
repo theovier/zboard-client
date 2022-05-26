@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Board from "../views/Board.vue";
+import Playground from "../views/Playground.vue";
 import PostBase from "../views/posts/PostBase.vue";
 import Post from "../views/posts/Post.vue";
 import PostCreate from "../views/posts/PostCreate.vue";
@@ -104,6 +105,15 @@ const router = createRouter({
 					meta: { requiresAuth: true },
 				},
 			],
+		},
+		{
+			path: "/playground",
+			name: "playground",
+			component: Playground,
+			meta: {
+				requiresAuth: false,
+				hideNavbar: true,
+			},
 		},
 		{
 			path: "/",
