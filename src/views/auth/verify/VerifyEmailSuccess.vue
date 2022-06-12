@@ -21,4 +21,22 @@
 	</container>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted, onUnmounted } from "vue";
+
+onMounted(() => {
+	changeBackgroundColor();
+});
+
+onUnmounted(() => {
+	resetBackgroundColor();
+});
+
+function changeBackgroundColor() {
+	document.body.classList.replace("bg-cyan-900", "bg-white");
+}
+
+function resetBackgroundColor() {
+	document.body.classList.replace("bg-white", "bg-cyan-900");
+}
+</script>
