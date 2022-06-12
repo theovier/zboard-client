@@ -86,7 +86,7 @@ const rules = computed(() => {
 			required,
 			mail,
 			trustedDomain: helpers.withMessage(
-				"Only addresses from theovier.de or example.com allowed",
+				"Only addresses from upb.de, uni-paderborn.de, miele.de and sn-invent.de allowed",
 				trustedDomain
 			),
 		},
