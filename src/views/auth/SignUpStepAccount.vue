@@ -60,7 +60,14 @@ const trustedDomain = (email: String) => {
 	if (domain === undefined) {
 		return false;
 	}
-	const trusted = ["theovier.de", "example.com"]; //todo load them by GET request on mounted
+	const trusted = [
+		"theovier.de",
+		"miele.de",
+		"uni-paderborn.de",
+		"upb.de",
+		"sn-invent.de",
+		"weidmueller.com",
+	]; //todo load them by GET request on mounted
 	return trusted.includes(domain);
 };
 
